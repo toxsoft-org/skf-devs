@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <category-def name="org.toxsoft.skf.devs.releng.category" label="org.toxsoft.skf.devs.releng Category">
+      <description>
+         org.toxsoft.skf.devs.releng Category
+      </description>
+   </category-def>
+   <bundle id="org.toxsoft.skf.devs.rtbrowser.gui"/>
+   <bundle id="org.toxsoft.skf.devs.rtbrowser.mws"/>
+   <bundle id="org.toxsoft.skf.devs.rtbrowser.skide"/>
+
+   <!-- sources -->
+   <bundle id="org.toxsoft.skf.devs.rtbrowser.gui.source"/>
+   <bundle id="org.toxsoft.skf.devs.rtbrowser.mws.source"/>
+   <bundle id="org.toxsoft.skf.devs.rtbrowser.skide.source"/>
+
+</site>
