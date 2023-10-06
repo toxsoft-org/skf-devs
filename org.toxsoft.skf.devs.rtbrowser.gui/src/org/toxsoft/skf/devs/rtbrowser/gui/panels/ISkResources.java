@@ -65,7 +65,7 @@ public interface ISkResources {
    * {@link ObjectCmdValueEditingSupport}
    */
   String STR_CMD_CONFIRM_DLG_CAPTION = "Подтверждение посыла команды";
-  String STR_CMD_CONFIRM_DLG_TITLE   = "Проверьте аргумены команды и нажмите Ok";
+  String STR_CMD_CONFIRM_DLG_TITLE   = "Проверьте, добавьте аргументы команды и нажмите Ok";
 
   /**
    * {@link LinksBrowser}
