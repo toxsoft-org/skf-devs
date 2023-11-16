@@ -5,13 +5,11 @@ import static org.toxsoft.core.tslib.av.metainfo.IAvMetaConstants.*;
 import static org.toxsoft.skf.devs.rtbrowser.skide.IRtBrowserSkideSharedResources.*;
 import static org.toxsoft.skide.core.ISkideCoreConstants.*;
 
-import org.toxsoft.core.tsgui.bricks.ctx.ITsGuiContext;
-import org.toxsoft.core.tsgui.dialogs.TsDialogUtils;
-import org.toxsoft.core.tslib.av.opset.impl.OptionSetUtils;
-import org.toxsoft.skf.devs.rtbrowser.gui.IRtBrowserGuiConstants;
-import org.toxsoft.skide.core.api.AbstractSkidePlugin;
-import org.toxsoft.skide.core.api.AbstractSkideUnit;
-import org.toxsoft.skide.core.api.impl.AbstractSkideUnitPanel;
+import org.toxsoft.core.tsgui.bricks.ctx.*;
+import org.toxsoft.core.tslib.av.opset.impl.*;
+import org.toxsoft.skf.devs.rtbrowser.gui.*;
+import org.toxsoft.skide.core.api.*;
+import org.toxsoft.skide.core.api.impl.*;
 
 /**
  * SkiDE unit: RtBrowser unit.
@@ -33,21 +31,6 @@ public class SkideUnitRtBrowser
         TSID_ICON_ID, IRtBrowserGuiConstants.ICONID_RTBROWSER_APP //
     ), aContext, aCreator );
     unitActions().add( ACDEF_ABOUT );
-  }
-
-  @Override
-  protected void doHandleAction( String aActionId ) {
-    switch( aActionId ) {
-      case ACTID_ABOUT: {
-        // TODO display complete info about unit
-        TsDialogUtils.info( getShell(), id() + '\n' + nmName() + '\n' + description() );
-        break;
-      }
-      default: {
-        // TODO display info about known but unhandled action
-        TsDialogUtils.info( getShell(), aActionId );
-      }
-    }
   }
 
   @Override
