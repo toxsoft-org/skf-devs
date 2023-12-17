@@ -1,24 +1,26 @@
 package org.toxsoft.skf.devs.rtbrowser.gui.panels.cmds;
 
-import org.eclipse.jface.viewers.*;
-import org.toxsoft.core.tsgui.bricks.ctx.*;
-import org.toxsoft.core.tsgui.dialogs.datarec.*;
-import org.toxsoft.core.tsgui.m5.*;
-import org.toxsoft.core.tsgui.m5.gui.*;
-import org.toxsoft.core.tslib.av.*;
-import org.toxsoft.core.tslib.av.opset.impl.*;
-import org.toxsoft.core.tslib.gw.gwid.*;
-import org.toxsoft.core.tslib.gw.skid.*;
-import org.toxsoft.skf.devs.rtbrowser.gui.km5.*;
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.TableViewer;
+import org.toxsoft.core.tsgui.bricks.ctx.ITsGuiContext;
+import org.toxsoft.core.tsgui.dialogs.datarec.ITsDialogInfo;
+import org.toxsoft.core.tsgui.dialogs.datarec.TsDialogInfo;
+import org.toxsoft.core.tsgui.m5.IM5Domain;
+import org.toxsoft.core.tsgui.m5.IM5Model;
+import org.toxsoft.core.tsgui.m5.gui.M5GuiUtils;
+import org.toxsoft.core.tslib.av.EAtomicType;
+import org.toxsoft.core.tslib.av.IAtomicValue;
+import org.toxsoft.core.tslib.av.opset.impl.OptionSet;
+import org.toxsoft.core.tslib.gw.gwid.Gwid;
+import org.toxsoft.core.tslib.gw.skid.Skid;
+import org.toxsoft.skf.devs.rtbrowser.gui.km5.CommandM5Model;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.ISkResources;
-import org.toxsoft.uskat.core.*;
-import org.toxsoft.uskat.core.api.users.*;
-import org.toxsoft.uskat.core.connection.*;
-import org.toxsoft.uskat.core.gui.conn.*;
-import org.toxsoft.uskat.core.impl.*;
-import org.toxsoft.uskat.core.impl.dto.*;
-import org.toxsoft.uskat.s5.server.backend.supports.commands.impl.*;
-import org.toxsoft.uskat.s5.utils.*;
+import org.toxsoft.uskat.core.ISkCoreApi;
+import org.toxsoft.uskat.core.connection.ISkConnection;
+import org.toxsoft.uskat.core.gui.conn.ISkConnectionSupplier;
+import org.toxsoft.uskat.core.impl.SkCommand;
+import org.toxsoft.uskat.core.impl.dto.DtoCommand;
+import org.toxsoft.uskat.s5.server.backend.supports.commands.impl.S5CommandIdGenerator;
 
 /**
  * Редактор значения в ячейке таблицы просмотра команд
@@ -112,8 +114,7 @@ public class ObjectCmdValueEditingSupport
     long currTime = System.currentTimeMillis();
     // Идентификатор команды
     String instanceId = S5CommandIdGenerator.INSTANCE.nextId();
-    ISkUser author = S5ConnectionUtils.getConnectedUser( conn.coreApi() );
-    Skid authorSkid = new Skid( author.classId(), author.strid() );
+    Skid authorSkid = conn.coreApi().getCurrentUserInfo().userSkid();
     // Новая команда
     DtoCommand dtoCommand = new DtoCommand( currTime, instanceId, cmdGwid, authorSkid, cmdArgs );
     // создаем новую команду со всеми аргументами

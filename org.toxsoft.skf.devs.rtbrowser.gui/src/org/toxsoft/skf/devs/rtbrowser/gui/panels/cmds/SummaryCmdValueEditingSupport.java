@@ -2,19 +2,21 @@ package org.toxsoft.skf.devs.rtbrowser.gui.panels.cmds;
 
 import static org.toxsoft.skf.devs.rtbrowser.gui.panels.ISkResources.*;
 
-import org.eclipse.jface.viewers.*;
-import org.eclipse.swt.widgets.*;
-import org.toxsoft.core.tsgui.bricks.ctx.*;
-import org.toxsoft.core.tsgui.dialogs.*;
-import org.toxsoft.core.tslib.av.*;
-import org.toxsoft.core.tslib.av.opset.impl.*;
-import org.toxsoft.core.tslib.gw.gwid.*;
-import org.toxsoft.core.tslib.gw.skid.*;
-import org.toxsoft.core.tslib.utils.*;
-import org.toxsoft.uskat.core.*;
-import org.toxsoft.uskat.core.api.cmdserv.*;
-import org.toxsoft.uskat.core.api.users.*;
-import org.toxsoft.uskat.s5.utils.*;
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.swt.widgets.Shell;
+import org.toxsoft.core.tsgui.bricks.ctx.ITsGuiContext;
+import org.toxsoft.core.tsgui.dialogs.ETsDialogCode;
+import org.toxsoft.core.tsgui.dialogs.TsDialogUtils;
+import org.toxsoft.core.tslib.av.EAtomicType;
+import org.toxsoft.core.tslib.av.IAtomicValue;
+import org.toxsoft.core.tslib.av.opset.impl.OptionSet;
+import org.toxsoft.core.tslib.gw.gwid.Gwid;
+import org.toxsoft.core.tslib.gw.skid.ISkidList;
+import org.toxsoft.core.tslib.gw.skid.Skid;
+import org.toxsoft.core.tslib.utils.TsLibUtils;
+import org.toxsoft.uskat.core.ISkCoreApi;
+import org.toxsoft.uskat.core.api.cmdserv.ISkCommand;
 
 /**
  * Редактор для генерации команд для колонки Summary
@@ -108,10 +110,10 @@ public class SummaryCmdValueEditingSupport
     Shell shell = tsContext.get( Shell.class );
     if( TsDialogUtils.askYesNoCancel( shell, confirmFmtStr, browserRow.cmdInfo().id() ) == ETsDialogCode.YES ) {
 
-      ISkUser author = S5ConnectionUtils.getConnectedUser( coreApi );
+      Skid authorSkid = coreApi.getCurrentUserInfo().userSkid();
       for( Skid cellSkid : skidList ) {
         Gwid cmdGwid = Gwid.createCmd( cellSkid.classId(), cellSkid.strid(), browserRow.cmdInfo().id() );
-        ISkCommand cmd = coreApi.cmdService().sendCommand( cmdGwid, author.skid(), cmdArgs );
+        ISkCommand cmd = coreApi.cmdService().sendCommand( cmdGwid, authorSkid, cmdArgs );
         browserRow.handleCommand( cmd );
       }
     }

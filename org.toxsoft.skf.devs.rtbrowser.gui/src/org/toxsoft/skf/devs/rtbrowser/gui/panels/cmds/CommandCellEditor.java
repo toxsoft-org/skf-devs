@@ -3,32 +3,32 @@
  */
 package org.toxsoft.skf.devs.rtbrowser.gui.panels.cmds;
 
-import org.eclipse.jface.viewers.*;
-import org.eclipse.swt.*;
-import org.eclipse.swt.graphics.*;
+import org.eclipse.jface.viewers.DialogCellEditor;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.*;
-import org.toxsoft.core.tsgui.bricks.ctx.*;
-import org.toxsoft.core.tsgui.dialogs.datarec.*;
-import org.toxsoft.core.tsgui.m5.*;
-import org.toxsoft.core.tsgui.m5.gui.*;
-import org.toxsoft.core.tsgui.utils.layout.*;
-import org.toxsoft.core.tslib.av.*;
-import org.toxsoft.core.tslib.av.impl.*;
-import org.toxsoft.core.tslib.av.metainfo.*;
-import org.toxsoft.core.tslib.av.opset.*;
-import org.toxsoft.core.tslib.av.opset.impl.*;
-import org.toxsoft.core.tslib.gw.gwid.*;
-import org.toxsoft.core.tslib.gw.skid.*;
-import org.toxsoft.skf.devs.rtbrowser.gui.km5.*;
-import org.toxsoft.uskat.core.api.cmdserv.*;
-import org.toxsoft.uskat.core.api.sysdescr.dto.*;
-import org.toxsoft.uskat.core.api.users.*;
-import org.toxsoft.uskat.core.connection.*;
-import org.toxsoft.uskat.core.gui.conn.*;
-import org.toxsoft.uskat.core.impl.*;
-import org.toxsoft.uskat.core.impl.dto.*;
-import org.toxsoft.uskat.s5.server.backend.supports.commands.impl.*;
-import org.toxsoft.uskat.s5.utils.*;
+import org.toxsoft.core.tsgui.bricks.ctx.ITsGuiContext;
+import org.toxsoft.core.tsgui.dialogs.datarec.ITsDialogInfo;
+import org.toxsoft.core.tsgui.dialogs.datarec.TsDialogInfo;
+import org.toxsoft.core.tsgui.m5.IM5Domain;
+import org.toxsoft.core.tsgui.m5.IM5Model;
+import org.toxsoft.core.tsgui.m5.gui.M5GuiUtils;
+import org.toxsoft.core.tsgui.utils.layout.BorderLayout;
+import org.toxsoft.core.tslib.av.IAtomicValue;
+import org.toxsoft.core.tslib.av.impl.AvUtils;
+import org.toxsoft.core.tslib.av.metainfo.IDataDef;
+import org.toxsoft.core.tslib.av.opset.IOptionSetEdit;
+import org.toxsoft.core.tslib.av.opset.impl.OptionSet;
+import org.toxsoft.core.tslib.gw.gwid.Gwid;
+import org.toxsoft.core.tslib.gw.skid.Skid;
+import org.toxsoft.skf.devs.rtbrowser.gui.km5.CommandM5Model;
+import org.toxsoft.uskat.core.api.cmdserv.ISkCommand;
+import org.toxsoft.uskat.core.api.sysdescr.dto.IDtoCmdInfo;
+import org.toxsoft.uskat.core.connection.ISkConnection;
+import org.toxsoft.uskat.core.gui.conn.ISkConnectionSupplier;
+import org.toxsoft.uskat.core.impl.SkCommand;
+import org.toxsoft.uskat.core.impl.dto.DtoCommand;
+import org.toxsoft.uskat.s5.server.backend.supports.commands.impl.S5CommandIdGenerator;
 
 /**
  * Редактор описания команды в ячейке таблицы
@@ -106,8 +106,7 @@ public class CommandCellEditor
     long currTime = System.currentTimeMillis();
     // Идентификатор команды
     String instanceId = S5CommandIdGenerator.INSTANCE.nextId();
-    ISkUser author = S5ConnectionUtils.getConnectedUser( conn.coreApi() );
-    Skid authorSkid = new Skid( author.classId(), author.strid() );
+    Skid authorSkid = conn.coreApi().getCurrentUserInfo().userSkid();
     // Новая команда
     DtoCommand dtoCommand = new DtoCommand( currTime, instanceId, cellCommandGwid, authorSkid, cmdArgs );
     // создаем новую команду без значений аргументов
