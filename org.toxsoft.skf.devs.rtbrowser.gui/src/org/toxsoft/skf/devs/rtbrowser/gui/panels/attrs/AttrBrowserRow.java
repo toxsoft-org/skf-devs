@@ -61,12 +61,4 @@ class AttrBrowserRow
     return baseValue.equals( IAtomicValue.NULL ) ? AvUtils.avStr( IRtBrowserTable.NONE_VALUE ) : baseValue;
   }
 
-  /**
-   * @return название rtData { @link IDtoRtdataInfo#nmName() } и его тип
-   */
-  @Override
-  public String propNameCell() {
-    return String.format( "%s [%s]", attrInfo.nmName(), attrInfo.dataType().atomicType().nmName() ); //$NON-NLS-1$
-  }
-
 }

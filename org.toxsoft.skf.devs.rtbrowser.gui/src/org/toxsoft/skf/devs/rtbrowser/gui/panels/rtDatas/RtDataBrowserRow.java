@@ -98,12 +98,4 @@ class RtDataBrowserRow
 
   }
 
-  /**
-   * @return название rtData { @link IDtoRtdataInfo#nmName() } и его тип
-   */
-  @Override
-  public String propNameCell() {
-    return String.format( "%s [%s]", rtDataInfo.nmName(), rtDataInfo.dataType().atomicType().nmName() ); //$NON-NLS-1$
-  }
-
 }
