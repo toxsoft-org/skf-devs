@@ -21,13 +21,18 @@ class AttrBrowserRow
     extends BaseBrowserRow {
 
   /**
+   * описание атрибута
+   */
+  private IDtoAttrInfo attrInfo;
+
+  /**
    * @param aCoreApi server's API
    * @param aSkidList список {@link Skid} значения атрибутов которых отображаются
    * @param aAttrInfo описание атрибута
    */
   public AttrBrowserRow( ISkCoreApi aCoreApi, ISkidList aSkidList, IDtoAttrInfo aAttrInfo ) {
     super( aCoreApi, aSkidList, aAttrInfo );
-    // attrInfo = aAttrInfo;
+    attrInfo = aAttrInfo;
   }
 
   @Override
@@ -54,6 +59,14 @@ class AttrBrowserRow
       }
     }
     return baseValue.equals( IAtomicValue.NULL ) ? AvUtils.avStr( IRtBrowserTable.NONE_VALUE ) : baseValue;
+  }
+
+  /**
+   * @return название rtData { @link IDtoRtdataInfo#nmName() } и его тип
+   */
+  @Override
+  public String propNameCell() {
+    return String.format( "%s [%s]", attrInfo.nmName(), attrInfo.dataType().atomicType().nmName() ); //$NON-NLS-1$
   }
 
 }
