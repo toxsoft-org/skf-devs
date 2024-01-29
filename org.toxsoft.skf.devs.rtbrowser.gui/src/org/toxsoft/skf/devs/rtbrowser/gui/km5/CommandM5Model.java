@@ -69,7 +69,7 @@ public class CommandM5Model
   /**
    * Field {@link SkCommand#argValues()}.
    */
-  public static final IM5MultiModownFieldDef<SkCommand, IdValue> EV_ARGS =
+  public final IM5MultiModownFieldDef<SkCommand, IdValue> EV_ARGS =
       new M5MultiModownFieldDef<>( FID_ARGS, IdValueM5Model.MODEL_ID ) {
 
         @Override
