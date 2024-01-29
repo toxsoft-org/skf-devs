@@ -67,7 +67,7 @@ public class EventM5Model
   /**
    * Field {@link SkEvent#paramValues()}.
    */
-  public static final IM5MultiModownFieldDef<SkEvent, IdValue> EV_PARAMS =
+  public final IM5MultiModownFieldDef<SkEvent, IdValue> EV_PARAMS =
       new M5MultiModownFieldDef<>( FID_PARAMS, IdValueM5Model.MODEL_ID ) {
 
         @Override
