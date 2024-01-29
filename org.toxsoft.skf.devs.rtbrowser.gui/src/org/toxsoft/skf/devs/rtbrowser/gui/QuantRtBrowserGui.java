@@ -35,8 +35,12 @@ public class QuantRtBrowserGui
     IRtBrowserGuiConstants.init( aWinContext );
 
     ValedControlFactoriesRegistry vcReg = aWinContext.get( ValedControlFactoriesRegistry.class );
-    vcReg.registerFactory( ValedSkidListEditor.FACTORY );
-    vcReg.registerFactory( ValedAvValobjSkidListEditor.FACTORY );
+    if( !vcReg.hasFactory( ValedSkidListEditor.FACTORY_NAME ) ) {
+      vcReg.registerFactory( ValedSkidListEditor.FACTORY );
+    }
+    if( !vcReg.hasFactory( ValedAvValobjSkidListEditor.FACTORY_NAME ) ) {
+      vcReg.registerFactory( ValedAvValobjSkidListEditor.FACTORY );
+    }
   }
 
 }
