@@ -3,6 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RtBrowser SkIDE
 Bundle-SymbolicName: org.toxsoft.skf.devs.rtbrowser.skide;singleton:=true
 Bundle-Version: 1.0.0.qualifier
+Export-Package: org.toxsoft.skf.devs.rtbrowser.skide,
+ org.toxsoft.skf.devs.rtbrowser.skide.e4.addons,
+ org.toxsoft.skf.devs.rtbrowser.skide.main
 Bundle-Activator: org.toxsoft.skf.devs.rtbrowser.skide.Activator
 Require-Bundle: javax.inject,
  org.eclipse.osgi,
