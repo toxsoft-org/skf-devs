@@ -406,7 +406,7 @@ public class RtBrowserPanel
     TsDialogInfo cdi = new TsDialogInfo( tsContext(), null, DLG_C_SELECT_CLASS, DLG_T_SELECT_CLASS, 0 );
     cdi.setMinSizeShellRelative( 60, 90 );
     IM5LifecycleManager<ISkClassInfo> lm = model.getLifecycleManager( null );
-    return M5GuiUtils.askSelectItem( cdi, model, null, lm.itemsProvider(), lm );
+    return M5GuiUtils.askSelectItem( cdi, model, null, lm.itemsProvider(), null );
   }
 
   /**
