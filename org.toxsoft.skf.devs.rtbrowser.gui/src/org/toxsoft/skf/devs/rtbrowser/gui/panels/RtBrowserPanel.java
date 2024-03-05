@@ -20,8 +20,11 @@ import org.toxsoft.core.tsgui.m5.gui.*;
 import org.toxsoft.core.tsgui.m5.model.*;
 import org.toxsoft.core.tsgui.panels.*;
 import org.toxsoft.core.tsgui.utils.layout.*;
+import org.toxsoft.core.tslib.coll.*;
+import org.toxsoft.core.tslib.coll.impl.*;
 import org.toxsoft.core.tslib.coll.primtypes.*;
 import org.toxsoft.core.tslib.coll.primtypes.impl.*;
+import org.toxsoft.core.tslib.gw.*;
 import org.toxsoft.core.tslib.gw.skid.*;
 import org.toxsoft.core.tslib.utils.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.*;
@@ -406,7 +409,21 @@ public class RtBrowserPanel
     TsDialogInfo cdi = new TsDialogInfo( tsContext(), null, DLG_C_SELECT_CLASS, DLG_T_SELECT_CLASS, 0 );
     cdi.setMinSizeShellRelative( 60, 90 );
     IM5LifecycleManager<ISkClassInfo> lm = model.getLifecycleManager( null );
-    return M5GuiUtils.askSelectItem( cdi, model, null, lm.itemsProvider(), null );
+    // фильтруем классы с которыми не работает ISkSysdescr
+    IM5ItemsProvider<ISkClassInfo> itemsProvider = () -> {
+      IListEdit<ISkClassInfo> retVal = new ElemArrayList<>();
+      for( ISkClassInfo ci : lm.itemsProvider().listItems() ) {
+        if( ci.id().equals( IGwHardConstants.GW_ROOT_CLASS_ID ) ) {
+          continue;
+        }
+        String claimerId = conn.coreApi().sysdescr().determineClassClaimingServiceId( ci.id() );
+        if( claimerId.equals( ISkSysdescr.SERVICE_ID ) ) {
+          retVal.add( ci );
+        }
+      }
+      return retVal;
+    };
+    return M5GuiUtils.askSelectItem( cdi, model, null, itemsProvider, null );
   }
 
   /**
