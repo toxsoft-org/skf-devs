@@ -1,11 +1,11 @@
 package org.toxsoft.skf.devs.rtbrowser.mws.e4.uiparts;
 
-import org.toxsoft.core.tsgui.bricks.ctx.ITsGuiContext;
-import org.toxsoft.core.tsgui.bricks.ctx.impl.TsGuiContext;
-import org.toxsoft.core.tsgui.utils.layout.BorderLayout;
-import org.toxsoft.core.tsgui.widgets.TsComposite;
-import org.toxsoft.skf.devs.rtbrowser.gui.panels.RtBrowserPanel;
-import org.toxsoft.uskat.core.gui.e4.uiparts.SkMwsAbstractPart;
+import org.toxsoft.core.tsgui.bricks.ctx.*;
+import org.toxsoft.core.tsgui.bricks.ctx.impl.*;
+import org.toxsoft.core.tsgui.utils.layout.*;
+import org.toxsoft.core.tsgui.widgets.*;
+import org.toxsoft.skf.devs.rtbrowser.gui.panels.*;
+import org.toxsoft.uskat.core.gui.e4.uiparts.*;
 
 /**
  * Просмотр и редактирование в реальном времени свойств ISkObject таких как:
@@ -25,7 +25,7 @@ public class UipartRtBrowser
 
   @Override
   protected void doCreateContent( TsComposite aParent ) {
-    ITsGuiContext ctx = new TsGuiContext( getWindowContext() );
+    ITsGuiContext ctx = new TsGuiContext( tsContext() );
     panel = new RtBrowserPanel( aParent, ctx );
     panel.setLayoutData( BorderLayout.CENTER );
   }
