@@ -7,7 +7,8 @@ Export-Package: org.toxsoft.skf.devs.rtbrowser.skide,
  org.toxsoft.skf.devs.rtbrowser.skide.e4.addons,
  org.toxsoft.skf.devs.rtbrowser.skide.main
 Bundle-Activator: org.toxsoft.skf.devs.rtbrowser.skide.Activator
-Require-Bundle: javax.inject,
+Require-Bundle: jakarta.inject.jakarta.inject-api,
+ jakarta.annotation-api,
  org.eclipse.osgi,
  org.eclipse.jface,
  org.eclipse.e4.ui.model.workbench,
@@ -20,8 +21,7 @@ Require-Bundle: javax.inject,
  org.toxsoft.skide.core,
  org.toxsoft.core.tslib,
  org.toxsoft.skf.devs.rtbrowser.gui
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Automatic-Module-Name: org.toxsoft.skf.devs.rtbrowser.skide
-Import-Package: javax.annotation;version="1.2.0"
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: ToxSoft LLC
