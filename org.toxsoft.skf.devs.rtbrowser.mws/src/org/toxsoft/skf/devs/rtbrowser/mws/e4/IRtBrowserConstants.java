@@ -15,7 +15,7 @@ public interface IRtBrowserConstants {
   // ------------------------------------------------------------------------------------
   // E4
 
-  String PERSPID_REPORTS = "org.toxsoft.skf.devs.rtbrowser.mws.perps.rtbrowser"; //$NON-NLS-1$
+  String PERSPID_RTBROWSER = "org.toxsoft.skf.devs.rtbrowser.mws.perps.rtbrowser"; //$NON-NLS-1$
 
   // ------------------------------------------------------------------------------------
   // Icons
