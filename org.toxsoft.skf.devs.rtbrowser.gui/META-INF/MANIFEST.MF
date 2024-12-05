@@ -11,7 +11,7 @@ Require-Bundle: jakarta.inject.jakarta.inject-api,
  org.eclipse.rap.ui;resolution:=optional,
  org.eclipse.equinox.registry,
  org.eclipse.e4.core.commands,
- org.eclipse.e4.core.contexts,                                                                                               
+ org.eclipse.e4.core.contexts,
  org.eclipse.e4.core.di.annotations,
  org.eclipse.e4.core.services,
  org.eclipse.e4.ui.workbench,
@@ -21,7 +21,8 @@ Require-Bundle: jakarta.inject.jakarta.inject-api,
  org.toxsoft.uskat.core,
  org.toxsoft.uskat.core.gui,
  org.toxsoft.uskat.s5,
- org.toxsoft.skf.reports.gui
+ org.toxsoft.skf.reports.gui,
+ org.toxsoft.skf.alarms.lib
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Automatic-Module-Name: org.toxsoft.skf.devs.rtbrowser.gui
 Bundle-ActivationPolicy: lazy

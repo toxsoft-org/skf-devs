@@ -24,9 +24,9 @@ import org.toxsoft.core.tslib.coll.*;
 import org.toxsoft.core.tslib.coll.impl.*;
 import org.toxsoft.core.tslib.coll.primtypes.*;
 import org.toxsoft.core.tslib.coll.primtypes.impl.*;
-import org.toxsoft.core.tslib.gw.*;
 import org.toxsoft.core.tslib.gw.skid.*;
 import org.toxsoft.core.tslib.utils.*;
+import org.toxsoft.skf.alarms.lib.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.attrs.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.cmds.*;
@@ -413,11 +413,12 @@ public class RtBrowserPanel
     IM5ItemsProvider<ISkClassInfo> itemsProvider = () -> {
       IListEdit<ISkClassInfo> retVal = new ElemArrayList<>();
       for( ISkClassInfo ci : lm.itemsProvider().listItems() ) {
-        if( ci.id().equals( IGwHardConstants.GW_ROOT_CLASS_ID ) ) {
-          continue;
-        }
+        // dima 05.12.24 fix NPE , TODO i don't understand but without SkObject RtBrowser fall down
+        // if( ci.id().equals( IGwHardConstants.GW_ROOT_CLASS_ID ) ) {
+        // continue;
+        // }
         String claimerId = conn.coreApi().sysdescr().determineClassClaimingServiceId( ci.id() );
-        if( claimerId.equals( ISkSysdescr.SERVICE_ID ) ) {
+        if( claimerId.equals( ISkSysdescr.SERVICE_ID ) || claimerId.equals( ISkAlarmService.SERVICE_ID ) ) {
           retVal.add( ci );
         }
       }
