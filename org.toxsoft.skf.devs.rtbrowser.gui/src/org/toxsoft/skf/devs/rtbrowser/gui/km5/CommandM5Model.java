@@ -49,8 +49,8 @@ public class CommandM5Model
    * Attribute {@link SkCommand#cmdGwid() } Command Green world ID
    */
   public M5AttributeFieldDef<SkCommand> EV_GWID = new M5AttributeFieldDef<>( FID_GWID, VALOBJ, //
-      TSID_NAME, STR_N_CMD_GWID, //
-      TSID_DESCRIPTION, STR_D_CMD_GWID, //
+      TSID_NAME, STR_CMD_GWID, //
+      TSID_DESCRIPTION, STR_CMD_GWID_D, //
       TSID_KEEPER_ID, Gwid.KEEPER_ID, //
       OPID_EDITOR_FACTORY_NAME, ValedAvValobjGwidEditor.FACTORY_NAME //
   ) {
@@ -74,7 +74,7 @@ public class CommandM5Model
 
         @Override
         protected void doInit() {
-          setNameAndDescription( STR_N_CMD_ARGS, STR_D_CMD_ARGS );
+          setNameAndDescription( STR_CMD_ARGS, STR_CMD_ARGS_D );
           setFlags( M5FF_DETAIL );
         }
 

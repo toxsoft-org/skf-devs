@@ -10,23 +10,23 @@ interface ISkResources {
   /**
    * {@link DtoLinkFwdM5Model}
    */
-  String STR_N_RIGHT_SKIDS        = "Right Skids";
-  String STR_D_RIGHT_SKIDS        = "Список идентификаторов 'правых' объектов ";
-  String STR_LINK_FWD_CLASS_ID    = "ID класса";
-  String STR_LINK_FWD_CLASS_ID_D  = "Идентификатор класса прямой связи";
-  String STR_N_FWD_LINK_GWID      = "Gwid of link";
-  String STR_D_FWD_LINK_GWID      = "Gwid этой связи";
-  String STR_N_FWD_LINK_LINK_ID   = "linkId";
-  String STR_D_FWD_LINK_LINK_ID   = "идентификатор прямой связи";
-  String STR_N_FWD_LINK_LEFT_SKID = "Left Skid";
-  String STR_D_FWD_LINK_LEFT_SKID = "Левый объект прямой связи";
-  String STR_N_EV_GWID            = "Event Gwid";
-  String STR_D_EV_GWID            = "Green world id события";
-  String STR_N_CMD_GWID           = "Command Gwid";
-  String STR_D_CMD_GWID           = "Green world id команды";
-  String STR_N_EVENT_PARAMS       = "Params of event";
-  String STR_D_EVENT_PARAMS       = "Параметры события";
-  String STR_N_CMD_ARGS           = "Args of cmd";
-  String STR_D_CMD_ARGS           = "Аргументы команды";
+  String STR_RIGHT_SKIDS          = Messages.getString( "STR_RIGHT_SKIDS" );          //$NON-NLS-1$
+  String STR_RIGHT_SKIDS_D        = Messages.getString( "STR_RIGHT_SKIDS_D" );        //$NON-NLS-1$
+  String STR_LINK_FWD_CLASS_ID    = Messages.getString( "STR_LINK_FWD_CLASS_ID" );    //$NON-NLS-1$
+  String STR_LINK_FWD_CLASS_ID_D  = Messages.getString( "STR_LINK_FWD_CLASS_ID_D" );  //$NON-NLS-1$
+  String STR_FWD_LINK_GWID        = Messages.getString( "STR_FWD_LINK_GWID" );        //$NON-NLS-1$
+  String STR_FWD_LINK_GWID_D      = Messages.getString( "STR_FWD_LINK_GWID_D" );      //$NON-NLS-1$
+  String STR_FWD_LINK_LINK_ID     = Messages.getString( "STR_FWD_LINK_LINK_ID" );     //$NON-NLS-1$
+  String STR_FWD_LINK_LINK_ID_D   = Messages.getString( "STR_FWD_LINK_LINK_ID_D" );   //$NON-NLS-1$
+  String STR_FWD_LINK_LEFT_SKID   = Messages.getString( "STR_FWD_LINK_LEFT_SKID" );   //$NON-NLS-1$
+  String STR_FWD_LINK_LEFT_SKID_D = Messages.getString( "STR_FWD_LINK_LEFT_SKID_D" ); //$NON-NLS-1$
+  String STR_EV_GWID              = Messages.getString( "STR_EV_GWID" );              //$NON-NLS-1$
+  String STR_EV_GWID_D            = Messages.getString( "STR_EV_GWID_D" );            //$NON-NLS-1$
+  String STR_CMD_GWID             = Messages.getString( "STR_CMD_GWID" );             //$NON-NLS-1$
+  String STR_CMD_GWID_D           = Messages.getString( "STR_CMD_GWID_D" );           //$NON-NLS-1$
+  String STR_EVENT_PARAMS         = Messages.getString( "STR_EVENT_PARAMS" );         //$NON-NLS-1$
+  String STR_EVENT_PARAMS_D       = Messages.getString( "STR_EVENT_PARAMS_D" );       //$NON-NLS-1$
+  String STR_CMD_ARGS             = Messages.getString( "STR_CMD_ARGS" );             //$NON-NLS-1$
+  String STR_CMD_ARGS_D           = Messages.getString( "STR_CMD_ARGS_D" );           //$NON-NLS-1$
 
 }

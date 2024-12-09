@@ -11,11 +11,11 @@ public interface IRtBrowserSharedResources {
   /**
    * {@link IRtBrowserGuiConstants}
    */
-  String STR_N_UPDATE_PAUSE   = "Пауза обновлений";
-  String STR_D_UPDATE_PAUSE   = "Временно заблокировать обновление данных";
-  String STR_N_UPDATE_RESUME  = "Возобновить обновление";
-  String STR_D_UPDATE_RESUME  = "Возобновить обновление данных";
-  String STR_N_SUMMARY_COLUMN = "Summary";
-  String STR_D_SUMMARY_COLUMN = "Отобразить/спрятать Summary";
+  String STR_UPDATE_PAUSE     = Messages.getString( "STR_UPDATE_PAUSE" );     //$NON-NLS-1$
+  String STR_UPDATE_PAUSE_D   = Messages.getString( "STR_UPDATE_PAUSE_D" );   //$NON-NLS-1$
+  String STR_UPDATE_RESUME    = Messages.getString( "STR_UPDATE_RESUME" );    //$NON-NLS-1$
+  String STR_UPDATE_RESUME_D  = Messages.getString( "STR_UPDATE_RESUME_D" );  //$NON-NLS-1$
+  String STR_SUMMARY_COLUMN   = Messages.getString( "STR_SUMMARY_COLUMN" );   //$NON-NLS-1$
+  String STR_SUMMARY_COLUMN_D = Messages.getString( "STR_SUMMARY_COLUMN_D" ); //$NON-NLS-1$
 
 }

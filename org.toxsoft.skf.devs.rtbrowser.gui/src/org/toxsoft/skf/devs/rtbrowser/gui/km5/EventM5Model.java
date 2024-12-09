@@ -47,8 +47,8 @@ public class EventM5Model
    * Attribute {@link SkEvent#eventGwid() } Green world ID
    */
   public M5AttributeFieldDef<SkEvent> EV_GWID = new M5AttributeFieldDef<>( FID_GWID, VALOBJ, //
-      TSID_NAME, STR_N_EV_GWID, //
-      TSID_DESCRIPTION, STR_D_EV_GWID, //
+      TSID_NAME, STR_EV_GWID, //
+      TSID_DESCRIPTION, STR_EV_GWID_D, //
       TSID_KEEPER_ID, Gwid.KEEPER_ID, //
       OPID_EDITOR_FACTORY_NAME, ValedAvValobjGwidEditor.FACTORY_NAME //
   ) {
@@ -72,7 +72,7 @@ public class EventM5Model
 
         @Override
         protected void doInit() {
-          setNameAndDescription( STR_N_EVENT_PARAMS, STR_D_EVENT_PARAMS );
+          setNameAndDescription( STR_EVENT_PARAMS, STR_EVENT_PARAMS_D );
           setFlags( M5FF_DETAIL );
         }
 

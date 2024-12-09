@@ -1,0 +1,10 @@
+--- org.toxsoft.skf.devs.rtbrowser.gui
+--- org.toxsoft.skf.devs.rtbrowser.gui.km5
+--- org.toxsoft.skf.devs.rtbrowser.gui.panels
+--- org.toxsoft.skf.devs.rtbrowser.gui.editors
+
+не вынесены константы:
+    org.toxsoft.skf.devs.rtbrowser.gui.editors.DoubleSpinner
+    org.toxsoft.skf.devs.rtbrowser.gui.panels.SkObjectsCheckList
+    org.toxsoft.skf.devs.rtbrowser.gui.widgets.TextContribution
+    

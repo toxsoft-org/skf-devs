@@ -80,8 +80,8 @@ public class DtoLinkFwdM5Model
    * Attribute {@link IDtoLinkFwd#gwid() } Green world ID
    */
   public M5AttributeFieldDef<IDtoLinkFwd> GWID = new M5AttributeFieldDef<>( FID_GWID, VALOBJ, //
-      TSID_NAME, STR_N_FWD_LINK_GWID, //
-      TSID_DESCRIPTION, STR_D_FWD_LINK_GWID, //
+      TSID_NAME, STR_FWD_LINK_GWID, //
+      TSID_DESCRIPTION, STR_FWD_LINK_GWID_D, //
       TSID_KEEPER_ID, Gwid.KEEPER_ID, //
       OPID_EDITOR_FACTORY_NAME, ValedAvValobjGwidEditor.FACTORY_NAME //
   ) {
@@ -101,8 +101,8 @@ public class DtoLinkFwdM5Model
    * Attribute {@link IDtoLinkFwd#gwid() } Green world ID
    */
   public M5AttributeFieldDef<IDtoLinkFwd> LEFT_SKID = new M5AttributeFieldDef<>( FID_LEFT_SKID, VALOBJ, //
-      TSID_NAME, STR_N_FWD_LINK_LEFT_SKID, //
-      TSID_DESCRIPTION, STR_D_FWD_LINK_LEFT_SKID, //
+      TSID_NAME, STR_FWD_LINK_LEFT_SKID, //
+      TSID_DESCRIPTION, STR_FWD_LINK_LEFT_SKID_D, //
       TSID_KEEPER_ID, Skid.KEEPER_ID, //
       OPID_EDITOR_FACTORY_NAME, ValedAvValobjSkidEditor.FACTORY_NAME //
   ) {
@@ -122,8 +122,8 @@ public class DtoLinkFwdM5Model
    * Attribute {@link IDtoLinkFwd#linkId() } id of link
    */
   public M5AttributeFieldDef<IDtoLinkFwd> LINK_ID = new M5AttributeFieldDef<>( FID_LINK_ID, EAtomicType.STRING, //
-      TSID_NAME, STR_N_FWD_LINK_LINK_ID, //
-      TSID_DESCRIPTION, STR_D_FWD_LINK_LINK_ID, //
+      TSID_NAME, STR_FWD_LINK_LINK_ID, //
+      TSID_DESCRIPTION, STR_FWD_LINK_LINK_ID_D, //
       OPID_EDITOR_FACTORY_NAME, ValedAvStringText.FACTORY_NAME ) {
 
     @Override
@@ -141,8 +141,8 @@ public class DtoLinkFwdM5Model
    * Attribute {@link IDtoLinkFwd#rightSkids() } Green world ID
    */
   public M5AttributeFieldDef<IDtoLinkFwd> RIGHT_SKIDS = new M5AttributeFieldDef<>( FID_RIGHT_SKIDS, VALOBJ, //
-      TSID_NAME, STR_N_RIGHT_SKIDS, //
-      TSID_DESCRIPTION, STR_D_RIGHT_SKIDS, //
+      TSID_NAME, STR_RIGHT_SKIDS, //
+      TSID_DESCRIPTION, STR_RIGHT_SKIDS_D, //
       TSID_KEEPER_ID, SkidListKeeper.KEEPER_ID, //
       OPID_EDITOR_FACTORY_NAME, ValedAvValobjSkidListEditor.FACTORY_NAME //
   ) {

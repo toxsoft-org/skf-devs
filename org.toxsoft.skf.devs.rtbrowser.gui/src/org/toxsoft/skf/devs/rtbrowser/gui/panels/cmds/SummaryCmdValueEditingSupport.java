@@ -2,21 +2,17 @@ package org.toxsoft.skf.devs.rtbrowser.gui.panels.cmds;
 
 import static org.toxsoft.skf.devs.rtbrowser.gui.panels.ISkResources.*;
 
-import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.swt.widgets.Shell;
-import org.toxsoft.core.tsgui.bricks.ctx.ITsGuiContext;
-import org.toxsoft.core.tsgui.dialogs.ETsDialogCode;
-import org.toxsoft.core.tsgui.dialogs.TsDialogUtils;
-import org.toxsoft.core.tslib.av.EAtomicType;
-import org.toxsoft.core.tslib.av.IAtomicValue;
-import org.toxsoft.core.tslib.av.opset.impl.OptionSet;
-import org.toxsoft.core.tslib.gw.gwid.Gwid;
-import org.toxsoft.core.tslib.gw.skid.ISkidList;
-import org.toxsoft.core.tslib.gw.skid.Skid;
-import org.toxsoft.core.tslib.utils.TsLibUtils;
-import org.toxsoft.uskat.core.ISkCoreApi;
-import org.toxsoft.uskat.core.api.cmdserv.ISkCommand;
+import org.eclipse.jface.viewers.*;
+import org.eclipse.swt.widgets.*;
+import org.toxsoft.core.tsgui.bricks.ctx.*;
+import org.toxsoft.core.tsgui.dialogs.*;
+import org.toxsoft.core.tslib.av.*;
+import org.toxsoft.core.tslib.av.opset.impl.*;
+import org.toxsoft.core.tslib.gw.gwid.*;
+import org.toxsoft.core.tslib.gw.skid.*;
+import org.toxsoft.core.tslib.utils.*;
+import org.toxsoft.uskat.core.*;
+import org.toxsoft.uskat.core.api.cmdserv.*;
 
 /**
  * Редактор для генерации команд для колонки Summary
@@ -121,9 +117,9 @@ public class SummaryCmdValueEditingSupport
 
   @SuppressWarnings( "nls" )
   private static String getObjSkidsStr( ISkidList aSkidList ) {
-    StringBuilder retVal = new StringBuilder( " \n" );
+    StringBuilder retVal = new StringBuilder( " \n" ); //$NON-NLS-1$
     for( Skid skid : aSkidList ) {
-      retVal.append( skid ).append( "\n" );
+      retVal.append( skid ).append( "\n" ); //$NON-NLS-1$
     }
     return retVal.toString();
   }
