@@ -27,8 +27,8 @@ public class SkideUnitRtBrowser
 
   SkideUnitRtBrowser( ITsGuiContext aContext, AbstractSkidePlugin aCreator ) {
     super( UNIT_ID, OptionSetUtils.createOpSet( //
-        TSID_NAME, STR_SKIDE_N_RT_BROWSER, //
-        TSID_DESCRIPTION, STR_SKIDE_D_RT_BROWSER, //
+        TSID_NAME, STR_SKIDE_RT_BROWSER, //
+        TSID_DESCRIPTION, STR_SKIDE_RT_BROWSER_D, //
         OPDEF_SKIDE_UNIT_CATEGORY, UCATEGID_DEVELOPMENT_DEBUG, //
         TSID_ICON_ID, IRtBrowserGuiConstants.ICONID_RTBROWSER_APP //
     ), aContext, aCreator );

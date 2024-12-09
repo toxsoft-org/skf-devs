@@ -13,7 +13,7 @@ public interface IRtBrowserSkideSharedResources {
   /**
    * {@link SkidePluginRtBrowser}
    */
-  String STR_SKIDE_N_RT_BROWSER = "RtBrowser";
-  String STR_SKIDE_D_RT_BROWSER = "Просмотр и редактирование свойств объектов системы";
+  String STR_SKIDE_RT_BROWSER   = Messages.getString( "STR_SKIDE_RT_BROWSER" );   //$NON-NLS-1$
+  String STR_SKIDE_RT_BROWSER_D = Messages.getString( "STR_SKIDE_RT_BROWSER_D" ); //$NON-NLS-1$
 
 }

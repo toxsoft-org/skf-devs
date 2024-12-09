@@ -31,8 +31,8 @@ public class SkidePluginRtBrowser
 
   SkidePluginRtBrowser() {
     super( SKIDE_PLUGIN_ID, OptionSetUtils.createOpSet( //
-        TSID_NAME, STR_SKIDE_N_RT_BROWSER, //
-        TSID_DESCRIPTION, STR_SKIDE_D_RT_BROWSER, //
+        TSID_NAME, STR_SKIDE_RT_BROWSER, //
+        TSID_DESCRIPTION, STR_SKIDE_RT_BROWSER_D, //
         TSID_ICON_ID, IRtBrowserGuiConstants.ICONID_RTBROWSER_APP //
     ) );
   }
