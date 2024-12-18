@@ -1,14 +1,13 @@
 package org.toxsoft.skf.devs.rtbrowser.gui.panels.rtDatas;
 
 import org.eclipse.jface.viewers.*;
-import org.toxsoft.core.tsgui.bricks.ctx.ITsGuiContext;
+import org.toxsoft.core.tsgui.bricks.ctx.*;
 import org.toxsoft.core.tsgui.valed.controls.av.*;
-import org.toxsoft.core.tslib.av.EAtomicType;
-import org.toxsoft.core.tslib.av.IAtomicValue;
-import org.toxsoft.core.tslib.utils.errors.TsNotAllEnumsUsedRtException;
+import org.toxsoft.core.tslib.av.*;
+import org.toxsoft.core.tslib.utils.errors.*;
+import org.toxsoft.skf.devs.rtbrowser.gui.editors.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.editors.ValedAvFloatSpinner;
-import org.toxsoft.skf.devs.rtbrowser.gui.editors.ValedCellEditor;
-import org.toxsoft.uskat.core.ISkCoreApi;
+import org.toxsoft.uskat.core.*;
 
 /**
  * Базовый редактор для редактирования значения/значений RtData в ячейках {@link RtDataBrowser}
@@ -18,7 +17,9 @@ import org.toxsoft.uskat.core.ISkCoreApi;
 public class BaseRtDataValueEditingSupport
     extends EditingSupport {
 
-  protected final ISkCoreApi coreApi;
+  protected final ISkCoreApi    coreApi;
+  protected final ITsGuiContext tsGuiContext;
+  protected final TableViewer   tableViewer;
 
   protected ValedCellEditor<IAtomicValue> currEditor;
   protected ValedCellEditor<IAtomicValue> intEditor;
@@ -29,6 +30,8 @@ public class BaseRtDataValueEditingSupport
   BaseRtDataValueEditingSupport( TableViewer aViewer, ISkCoreApi aCoreApi, ITsGuiContext aTsContext ) {
     super( aViewer );
     coreApi = aCoreApi;
+    tsGuiContext = aTsContext;
+    tableViewer = aViewer;
 
     textEditor = new ValedCellEditor<>( new ValedAvAnytypeText( aTsContext ), aViewer, aTsContext );
     intEditor = new ValedCellEditor<>( new ValedAvIntegerSpinner( aTsContext ), aViewer, aTsContext );
@@ -40,20 +43,11 @@ public class BaseRtDataValueEditingSupport
   protected boolean canEdit( Object aElement ) {
     RtDataBrowserRow browserRow = (RtDataBrowserRow)aElement;
     EAtomicType cellValueType = browserRow.dataInfo().dataType().atomicType();
-    switch( cellValueType ) {
-      case BOOLEAN:
-      case FLOATING:
-      case INTEGER:
-      case STRING:
-        return true;
-      case TIMESTAMP:
-      case NONE:
-      case VALOBJ:
-        return false;
-      default:
-        throw new TsNotAllEnumsUsedRtException();
-
-    }
+    return switch( cellValueType ) {
+      case BOOLEAN, FLOATING, INTEGER, STRING, VALOBJ -> true;
+      case TIMESTAMP, NONE -> false;
+      default -> throw new TsNotAllEnumsUsedRtException();
+    };
   }
 
   @Override

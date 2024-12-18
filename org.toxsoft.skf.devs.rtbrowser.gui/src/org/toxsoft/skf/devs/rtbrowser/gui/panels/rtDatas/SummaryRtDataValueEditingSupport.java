@@ -2,10 +2,16 @@ package org.toxsoft.skf.devs.rtbrowser.gui.panels.rtDatas;
 
 import org.eclipse.jface.viewers.*;
 import org.toxsoft.core.tsgui.bricks.ctx.*;
+import org.toxsoft.core.tsgui.valed.controls.av.*;
+import org.toxsoft.core.tsgui.valed.controls.enums.*;
 import org.toxsoft.core.tslib.av.*;
+import org.toxsoft.core.tslib.av.metainfo.*;
+import org.toxsoft.core.tslib.bricks.keeper.*;
 import org.toxsoft.core.tslib.coll.*;
 import org.toxsoft.core.tslib.gw.gwid.*;
 import org.toxsoft.core.tslib.gw.skid.*;
+import org.toxsoft.core.tslib.utils.valobj.*;
+import org.toxsoft.skf.devs.rtbrowser.gui.editors.*;
 import org.toxsoft.uskat.core.*;
 import org.toxsoft.uskat.core.api.rtdserv.*;
 
@@ -69,6 +75,24 @@ public class SummaryRtDataValueEditingSupport
       case TIMESTAMP:
         break;
       case VALOBJ:
+        // тут приходится создавать на лету
+        IDataType dt = browserRow.dataInfo().dataType();
+        IEntityKeeper<?> keeper = TsValobjUtils.findKeeperById( dt.keeperId() );
+        if( keeper != null ) {
+          Class<?> rawClass = keeper.entityClass();
+          if( rawClass != null && rawClass.isEnum() ) {
+            IValedEnumConstants.REFDEF_ENUM_CLASS.setRef( tsGuiContext, rawClass );
+          }
+        }
+
+        ValedCellEditor<IAtomicValue> enumEditor = new ValedCellEditor<>(
+            ValedAvValobjEnumCombo.FACTORY.createEditor( tsGuiContext ), tableViewer, tsGuiContext );
+        currEditor = enumEditor;
+        if( cellVal.atomicType() != EAtomicType.VALOBJ ) {
+          cellVal = dfltCellVal;
+        }
+        currEditor.setValue( cellVal );
+        retVal = currEditor;
         break;
       default:
         break;
