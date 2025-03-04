@@ -8,13 +8,17 @@ import org.toxsoft.core.tsgui.bricks.quant.*;
 import org.toxsoft.core.tsgui.valed.impl.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.editors.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.km5.*;
+import org.toxsoft.uskat.core.api.*;
+import org.toxsoft.uskat.core.devapi.*;
 import org.toxsoft.uskat.core.gui.km5.*;
+import org.toxsoft.uskat.core.impl.*;
 
 /**
  * @author dima
  */
 public class QuantRtBrowserGui
-    extends AbstractQuant {
+    extends AbstractQuant
+    implements ISkCoreExternalHandler {
 
   /**
    * Constructor.
@@ -23,6 +27,7 @@ public class QuantRtBrowserGui
     super( QuantRtBrowserGui.class.getSimpleName() );
     // регистрация нужных М5 моделей
     KM5Utils.registerContributorCreator( KM5RtBrowserContributor.CREATOR );
+    SkCoreUtils.registerCoreApiHandler( this );
   }
 
   @Override
@@ -41,6 +46,13 @@ public class QuantRtBrowserGui
     if( !vcReg.hasFactory( ValedAvValobjSkidListEditor.FACTORY_NAME ) ) {
       vcReg.registerFactory( ValedAvValobjSkidListEditor.FACTORY );
     }
+  }
+
+  @Override
+  public void processSkCoreInitialization( IDevCoreApi aCoreApi ) {
+    // register abilities
+    aCoreApi.userService().abilityManager().defineKind( IRtBrowserGuiConstants.ABKIND_RTBROWSER );
+    aCoreApi.userService().abilityManager().defineAbility( IRtBrowserGuiConstants.ABILITY_ACCESS_RTBROWSER );
   }
 
 }
