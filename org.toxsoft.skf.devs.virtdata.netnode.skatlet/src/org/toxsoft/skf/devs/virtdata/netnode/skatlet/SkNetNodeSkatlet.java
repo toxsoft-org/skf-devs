@@ -76,7 +76,7 @@ public class SkNetNodeSkatlet
         }
         Gwid healthOutput = avHealthOutput.asValobj();
         IGwidList healthInputs = getConcreteInputs( coreApi, (IGwidList)avHealthInputs.asValobj() );
-        String healthEnabled = avHealthInputsEnabled.asValobj();
+        String healthEnabled = avHealthInputsEnabled.asString();
         writers.add( new SkNetNodeRtdHealthWriter( coreApi, healthOutput, healthInputs, healthEnabled, logger() ) );
       }
       // online
