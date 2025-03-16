@@ -5,6 +5,8 @@ import static org.toxsoft.skf.devs.rtbrowser.gui.IRtBrowserSharedResources.*;
 import org.eclipse.e4.core.contexts.*;
 import org.toxsoft.core.tsgui.bricks.actions.*;
 import org.toxsoft.core.tsgui.graphics.icons.*;
+import org.toxsoft.uskat.core.api.users.ability.*;
+import org.toxsoft.uskat.core.impl.dto.*;
 
 /**
  * Plugin constants.
@@ -68,6 +70,28 @@ public interface IRtBrowserGuiConstants {
 
   TsActionDef ACDEF_SUMMARY_COLUMN =
       TsActionDef.ofCheck2( SUMMARY_COLUMN_ID, STR_SUMMARY_COLUMN, STR_SUMMARY_COLUMN_D, ICONID_SUMMARY_COLUMN );
+
+  /**
+   * id тип возможности «RtBrowser
+   */
+  String ABKINDID_RTBROWSER = "abkind.rtBrowser"; // »
+
+  /**
+   * создание «своего» типа
+   */
+  IDtoSkAbilityKind ABKIND_RTBROWSER =
+      DtoSkAbilityKind.create( ABKINDID_RTBROWSER, STR_ABKIND_RTBROWSER, STR_ABKIND_RTBROWSER_D );
+
+  /**
+   * Create id ability to access rtBrowser
+   */
+  String ABILITYID_RTBROWSER_PERSP_ACCESS = "ability.rtBrowser.access"; //$NON-NLS-1$
+
+  /**
+   * Create ability to access rtBrowser
+   */
+  IDtoSkAbility ABILITY_ACCESS_RTBROWSER = DtoSkAbility.create( ABILITYID_RTBROWSER_PERSP_ACCESS, ABKINDID_RTBROWSER,
+      STR_ABILITY_ACCESS_RTBROWSER, STR_ABILITY_ACCESS_RTBROWSER_D );
 
   /**
    * Constants registration.

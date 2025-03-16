@@ -15,7 +15,10 @@ public interface IRtBrowserConstants {
   // ------------------------------------------------------------------------------------
   // E4
 
-  String PERSPID_RTBROWSER = "org.toxsoft.skf.devs.rtbrowser.mws.perps.rtbrowser"; //$NON-NLS-1$
+  // visual elements ids
+  String E4_VISUAL_ELEM_ID_PERSPID_RTBROWSER    = "org.toxsoft.skf.devs.rtbrowser.mws.perps.rtbrowser";           //$NON-NLS-1$
+  String E4_VISUAL_ELEM_ID_MENU_ITEEM_RTBROWSER = "org.toxsoft.skf.devs.rtbrowser.mws.handledmenuitem.rtbrowser"; //$NON-NLS-1$
+  String E4_VISUAL_ELEM_ID_TOOL_ITEEM_RTBROWSER = "org.toxsoft.skf.devs.rtbrowser.mws.handledtoolitem.rtbrowser"; //$NON-NLS-1$
 
   // ------------------------------------------------------------------------------------
   // Icons
