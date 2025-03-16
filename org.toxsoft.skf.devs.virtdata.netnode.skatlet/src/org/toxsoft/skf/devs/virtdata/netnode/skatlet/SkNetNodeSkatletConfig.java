@@ -42,6 +42,7 @@ public final class SkNetNodeSkatletConfig {
    * -Dorg.toxsoft.uskat.skatlets.virtdata.netnode.online.output3=@Gwid[val.Registrator[owen_VK3]$rtdata(online)]
    * -Dorg.toxsoft.uskat.skatlets.virtdata.netnode.online.output4=@Gwid[val.Registrator[owen_VK4]$rtdata(online)]
    * -Dorg.toxsoft.uskat.skatlets.virtdata.netnode.online.output5=@Gwid[val.Registrator[owen_VK5]$rtdata(online)]
+   *
    * </code>
    */
   public static final String NETNODE_HEALTH_OUTPUT_PREFIX = SYBSYSTEM_ID_PREFIX + ".health.output";
