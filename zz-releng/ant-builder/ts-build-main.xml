@@ -19,6 +19,11 @@
     <ant dir="../../org.toxsoft.skf.devs.rtbrowser.gui" antfile="${ts-scripts-dir}/ts-build-lib.xml" target="build-lib-jar" />
     <ant dir="../../org.toxsoft.skf.devs.rtbrowser.mws" antfile="${ts-scripts-dir}/ts-build-lib.xml" target="build-lib-jar" />
     <ant dir="../../org.toxsoft.skf.devs.rtbrowser.skide" antfile="${ts-scripts-dir}/ts-build-lib.xml" target="build-lib-jar" />
+
+    <ant dir="../../org.toxsoft.skf.devs.virtdata.netnode.skatlet" antfile="ts-build-skatlet.xml" target="1_clean" />
+    <ant dir="../../org.toxsoft.skf.devs.virtdata.netnode.skatlet" antfile="ts-build-skatlet.xml" target="2_build" />
+    <ant dir="../../org.toxsoft.skf.devs.virtdata.netnode.skatlet" antfile="ts-build-skatlet.xml" target="3_build_deploy" />
+
   </target>
 
   <!-- ЦЕЛЬ: сборка plugin-ов -->
