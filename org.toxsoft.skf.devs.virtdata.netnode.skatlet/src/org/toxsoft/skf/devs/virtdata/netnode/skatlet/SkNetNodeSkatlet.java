@@ -77,7 +77,20 @@ public class SkNetNodeSkatlet
         Gwid healthOutput = avHealthOutput.asValobj();
         IGwidList healthInputs = getConcreteInputs( coreApi, (IGwidList)avHealthInputs.asValobj() );
         String healthEnabled = avHealthInputsEnabled.asString();
-        writers.add( new SkNetNodeRtdHealthWriter( coreApi, healthOutput, healthInputs, healthEnabled, logger() ) );
+        writers.add( new SkNetNodeRtdHealthWriter( coreApi, healthOutput, healthInputs, healthEnabled, logger() ) {
+
+          @Override
+          protected void doHandleValue( IAtomicValue aPrevValue, IAtomicValue aNewValue ) {
+            ISkDataQualityService dataQualityService = coreApi.getService( ISkDataQualityService.SERVICE_ID );
+            IGwidList gwids = new GwidList( healthOutput );
+            if( aNewValue.asInt() > 0 ) {
+              dataQualityService.addConnectedResources( gwids );
+              return;
+            }
+            dataQualityService.removeConnectedResources( gwids );
+          }
+
+        } );
       }
       // online
       i = 0;
@@ -96,16 +109,19 @@ public class SkNetNodeSkatlet
         }
         Gwid onlineOutput = avOnlineOutput.asValobj();
         IGwidList onlineInputs = getConcreteInputs( coreApi, (IGwidList)avOnlineInputs.asValobj() );
-        writers.add( new SkNetNodeRtdOnlineWriter( coreApi, onlineOutput, onlineInputs ) );
-      }
-      // Register dataquality list
-      GwidList writeDataIds = new GwidList();
-      for( SkAbstractVirtDataCurrDataWriter writer : writers ) {
-        writeDataIds.add( writer.writeDataId() );
-      }
-      if( writeDataIds.size() > 0 ) {
-        ISkDataQualityService dataQualityService = coreApi.getService( ISkDataQualityService.SERVICE_ID );
-        dataQualityService.addConnectedResources( writeDataIds );
+        writers.add( new SkNetNodeRtdOnlineWriter( coreApi, onlineOutput, onlineInputs ) {
+
+          @Override
+          protected void doHandleValue( IAtomicValue aPrevValue, IAtomicValue aNewValue ) {
+            ISkDataQualityService dataQualityService = coreApi.getService( ISkDataQualityService.SERVICE_ID );
+            IGwidList gwids = new GwidList( onlineOutput );
+            if( aNewValue.asValobj().equals( EConnState.ONLINE ) ) {
+              dataQualityService.addConnectedResources( gwids );
+              return;
+            }
+            dataQualityService.removeConnectedResources( gwids );
+          }
+        } );
       }
     } );
     logger().info( "%s: start(). writers count = %d", id(), Integer.valueOf( writers.size() ) ); //$NON-NLS-1$

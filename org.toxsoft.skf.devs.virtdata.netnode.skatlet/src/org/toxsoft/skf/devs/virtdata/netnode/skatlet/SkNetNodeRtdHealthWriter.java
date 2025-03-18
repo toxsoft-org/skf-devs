@@ -26,7 +26,7 @@ import org.toxsoft.uskat.virtdata.*;
  *
  * @author mvk
  */
-final class SkNetNodeRtdHealthWriter
+class SkNetNodeRtdHealthWriter
     extends SkAbstractVirtDataCurrDataWriter {
 
   private static final String rriSectionId = "rri.section.id"; //$NON-NLS-1$
@@ -76,33 +76,8 @@ final class SkNetNodeRtdHealthWriter
       objInputs.right().add( g );
     }
     rri.addRriIds( tmpRriIds );
-  }
-
-  private static Gwid getRriGwid( ISkCoreApi aCorApi, Skid aObjId, String aRriEnabled, ILogger aLogger ) {
-    if( aRriEnabled.length() > 0 ) {
-      String classId = aObjId.classId();
-      ISkRegRefInfoService rriService = aCorApi.getService( ISkRegRefInfoService.SERVICE_ID );
-      ISkRriSection rriSection = rriService.getSection( rriSectionId );
-      IDtoRriParamInfo rriParamInfo = rriSection.listParamInfoes( classId ).findByKey( aRriEnabled );
-      if( rriParamInfo == null ) {
-        // Для класса не определен RRI
-        aLogger.warning( ERR_DOES_NOT_HAVE_RRI, classId, aRriEnabled );
-        return Gwid.NONE_CONCR_ATTR;
-      }
-      if( rriParamInfo.isLink() ) {
-        // RRI не является атрибутом
-        aLogger.warning( ERR_RRI_IS_NOT_ATTR, classId, aRriEnabled );
-        return Gwid.NONE_CONCR_ATTR;
-      }
-      EAtomicType type = rriParamInfo.attrInfo().dataType().atomicType();
-      if( type != EAtomicType.BOOLEAN ) {
-        // RRI должен представлять boolean-тип
-        aLogger.warning( ERR_RRI_IS_NOT_BOOLEAN, classId, aRriEnabled, type );
-        return Gwid.NONE_CONCR_ATTR;
-      }
-    }
-    Gwid retValue = (aRriEnabled.length() > 0 ? Gwid.createAttr( aObjId, aRriEnabled ) : Gwid.NONE_CONCR_ATTR);
-    return retValue;
+    // Write current value
+    onGenericChangeEvent( this );
   }
 
   // ------------------------------------------------------------------------------------
@@ -153,4 +128,30 @@ final class SkNetNodeRtdHealthWriter
   // ------------------------------------------------------------------------------------
   // private methods
   //
+  private static Gwid getRriGwid( ISkCoreApi aCorApi, Skid aObjId, String aRriEnabled, ILogger aLogger ) {
+    if( aRriEnabled.length() > 0 ) {
+      String classId = aObjId.classId();
+      ISkRegRefInfoService rriService = aCorApi.getService( ISkRegRefInfoService.SERVICE_ID );
+      ISkRriSection rriSection = rriService.getSection( rriSectionId );
+      IDtoRriParamInfo rriParamInfo = rriSection.listParamInfoes( classId ).findByKey( aRriEnabled );
+      if( rriParamInfo == null ) {
+        // Для класса не определен RRI
+        aLogger.warning( ERR_DOES_NOT_HAVE_RRI, classId, aRriEnabled );
+        return Gwid.NONE_CONCR_ATTR;
+      }
+      if( rriParamInfo.isLink() ) {
+        // RRI не является атрибутом
+        aLogger.warning( ERR_RRI_IS_NOT_ATTR, classId, aRriEnabled );
+        return Gwid.NONE_CONCR_ATTR;
+      }
+      EAtomicType type = rriParamInfo.attrInfo().dataType().atomicType();
+      if( type != EAtomicType.BOOLEAN ) {
+        // RRI должен представлять boolean-тип
+        aLogger.warning( ERR_RRI_IS_NOT_BOOLEAN, classId, aRriEnabled, type );
+        return Gwid.NONE_CONCR_ATTR;
+      }
+    }
+    Gwid retValue = (aRriEnabled.length() > 0 ? Gwid.createAttr( aObjId, aRriEnabled ) : Gwid.NONE_CONCR_ATTR);
+    return retValue;
+  }
 }

@@ -18,7 +18,7 @@ import org.toxsoft.uskat.virtdata.*;
  *
  * @author mvk
  */
-final class SkNetNodeRtdOnlineWriter
+class SkNetNodeRtdOnlineWriter
     extends SkAbstractVirtDataCurrDataWriter {
 
   private final SkVirtDataDataQualityReader dataQuality;
@@ -40,6 +40,8 @@ final class SkNetNodeRtdOnlineWriter
   SkNetNodeRtdOnlineWriter( ISkCoreApi aCoreApi, Gwid aOnlineOutput, IGwidList aOnlineInputs ) {
     super( aCoreApi, aOnlineOutput );
     dataQuality = new SkVirtDataDataQualityReader( aCoreApi, aOnlineInputs, this );
+    // Write current value
+    onGenericChangeEvent( this );
   }
 
   // ------------------------------------------------------------------------------------
