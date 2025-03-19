@@ -148,7 +148,7 @@ public class SkNetNodeSkatlet
   // private methods
   //
   private static IGwidList getConcreteInputs( ISkCoreApi aCoreApi, IGwidList aInputs ) {
-    return SkHelperUtils.getConcreteRtDataGwids( aCoreApi, aInputs );
+    return SkHelperUtils.expandGwids( aCoreApi, aInputs, EGwidKind.GW_RTDATA );
   }
 
 }
