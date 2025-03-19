@@ -7,21 +7,16 @@ import static org.toxsoft.skf.devs.virtdata.netnode.skatlet.SkNetNodeSkatletConf
 import org.toxsoft.core.tslib.av.*;
 import org.toxsoft.core.tslib.av.opset.*;
 import org.toxsoft.core.tslib.av.opset.impl.*;
-import org.toxsoft.core.tslib.bricks.strid.coll.*;
 import org.toxsoft.core.tslib.bricks.threadexec.*;
 import org.toxsoft.core.tslib.coll.*;
 import org.toxsoft.core.tslib.coll.impl.*;
 import org.toxsoft.core.tslib.gw.gwid.*;
-import org.toxsoft.core.tslib.gw.skid.*;
 import org.toxsoft.core.tslib.utils.errors.*;
 import org.toxsoft.skf.dq.lib.*;
 import org.toxsoft.uskat.classes.*;
 import org.toxsoft.uskat.core.*;
-import org.toxsoft.uskat.core.api.gwids.*;
-import org.toxsoft.uskat.core.api.linkserv.*;
-import org.toxsoft.uskat.core.api.sysdescr.*;
-import org.toxsoft.uskat.core.api.sysdescr.dto.*;
 import org.toxsoft.uskat.core.impl.*;
+import org.toxsoft.uskat.core.utils.*;
 import org.toxsoft.uskat.virtdata.*;
 
 /**
@@ -153,49 +148,7 @@ public class SkNetNodeSkatlet
   // private methods
   //
   private static IGwidList getConcreteInputs( ISkCoreApi aCoreApi, IGwidList aInputs ) {
-    TsNullArgumentRtException.checkNulls( aCoreApi, aInputs );
-    ISkSysdescr sysdescr = aCoreApi.sysdescr();
-    ISkLinkService linkService = aCoreApi.linkService();
-    ISkGwidService gwidService = aCoreApi.gwidService();
-    GwidList retValue = new GwidList();
-    for( Gwid g : aInputs ) {
-      switch( g.kind() ) {
-        case GW_CLASS: {
-          retValue.addAll( getObjRtdataGwids( sysdescr, gwidService.expandGwid( g ).objIds() ) );
-          break;
-        }
-        case GW_LINK: {
-          for( Gwid link : gwidService.expandGwid( g ) ) {
-            retValue.addAll( getObjRtdataGwids( sysdescr, linkService.getLinkFwd( link ).rightSkids() ) );
-          }
-          break;
-        }
-        case GW_RTDATA:
-          retValue.addAll( gwidService.expandGwid( g ) );
-          break;
-        case GW_ATTR:
-        case GW_RIVET:
-        case GW_CLOB:
-        case GW_CMD:
-        case GW_CMD_ARG:
-        case GW_EVENT:
-        case GW_EVENT_PARAM:
-          throw new TsIllegalArgumentRtException();
-        default:
-          throw new TsNotAllEnumsUsedRtException();
-      }
-    }
-    return retValue;
+    return SkHelperUtils.getConcreteRtDataGwids( aCoreApi, aInputs );
   }
 
-  private static IGwidList getObjRtdataGwids( ISkSysdescr aSysdescr, ISkidList aObjIds ) {
-    GwidList retValue = new GwidList();
-    for( Skid objId : aObjIds ) {
-      IStridablesList<IDtoRtdataInfo> rtDataInfos = aSysdescr.getClassInfo( objId.classId() ).rtdata().list();
-      for( String rtDataId : rtDataInfos.keys() ) {
-        retValue.add( Gwid.createRtdata( objId, rtDataId ) );
-      }
-    }
-    return retValue;
-  }
 }
