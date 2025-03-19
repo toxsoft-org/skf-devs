@@ -3,6 +3,7 @@ package org.toxsoft.skf.devs.virtdata.netnode.skatlet;
 import static org.toxsoft.core.tslib.av.metainfo.IAvMetaConstants.*;
 import static org.toxsoft.skf.devs.virtdata.netnode.skatlet.ISkResources.*;
 import static org.toxsoft.skf.devs.virtdata.netnode.skatlet.SkNetNodeSkatletConfig.*;
+import static org.toxsoft.uskat.core.utils.SkHelperUtils.*;
 
 import org.toxsoft.core.tslib.av.*;
 import org.toxsoft.core.tslib.av.opset.*;
@@ -16,7 +17,6 @@ import org.toxsoft.skf.dq.lib.*;
 import org.toxsoft.uskat.classes.*;
 import org.toxsoft.uskat.core.*;
 import org.toxsoft.uskat.core.impl.*;
-import org.toxsoft.uskat.core.utils.*;
 import org.toxsoft.uskat.virtdata.*;
 
 /**
@@ -70,7 +70,7 @@ public class SkNetNodeSkatlet
           throw new TsItemNotFoundRtException( ERR_NOT_FOUND, NETNODE_HEALTH_INPUTS_ENABLED_PREFIX + index );
         }
         Gwid healthOutput = avHealthOutput.asValobj();
-        IGwidList healthInputs = getConcreteInputs( coreApi, (IGwidList)avHealthInputs.asValobj() );
+        IGwidList healthInputs = expandGwids( coreApi, (IGwidList)avHealthInputs.asValobj(), EGwidKind.GW_RTDATA );
         String healthEnabled = avHealthInputsEnabled.asString();
         writers.add( new SkNetNodeRtdHealthWriter( coreApi, healthOutput, healthInputs, healthEnabled, logger() ) {
 
@@ -103,7 +103,7 @@ public class SkNetNodeSkatlet
           throw new TsItemNotFoundRtException( ERR_NOT_FOUND, NETNODE_ONLINE_INPUTS_PREFIX + index );
         }
         Gwid onlineOutput = avOnlineOutput.asValobj();
-        IGwidList onlineInputs = getConcreteInputs( coreApi, (IGwidList)avOnlineInputs.asValobj() );
+        IGwidList onlineInputs = expandGwids( coreApi, (IGwidList)avOnlineInputs.asValobj(), EGwidKind.GW_RTDATA );
         writers.add( new SkNetNodeRtdOnlineWriter( coreApi, onlineOutput, onlineInputs ) {
 
           @Override
@@ -147,8 +147,5 @@ public class SkNetNodeSkatlet
   // ------------------------------------------------------------------------------------
   // private methods
   //
-  private static IGwidList getConcreteInputs( ISkCoreApi aCoreApi, IGwidList aInputs ) {
-    return SkHelperUtils.expandGwids( aCoreApi, aInputs, EGwidKind.GW_RTDATA );
-  }
 
 }
