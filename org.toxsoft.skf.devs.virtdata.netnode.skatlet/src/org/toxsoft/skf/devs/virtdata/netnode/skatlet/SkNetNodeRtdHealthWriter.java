@@ -72,6 +72,9 @@ class SkNetNodeRtdHealthWriter
         Gwid rriAttr = getRriGwid( aCoreApi, objId, aRriEnabled, aLogger );
         objInputs = new Pair<>( rriAttr, new GwidList() );
         inputsByObjsEdit.put( objId, objInputs );
+        if( !tmpRriIds.hasElem( rriAttr ) ) {
+          tmpRriIds.add( rriAttr );
+        }
       }
       objInputs.right().add( g );
     }
