@@ -86,6 +86,7 @@ public class SkNetNodeSkatlet
           }
 
         } );
+        logger().info( MSG_HEALTH_ITEM, Integer.valueOf( index ), healthOutput, gwidsToString( healthInputs ) );
       }
       // online
       i = 0;
@@ -117,6 +118,7 @@ public class SkNetNodeSkatlet
             dataQualityService.removeConnectedResources( gwids );
           }
         } );
+        logger().info( MSG_ONLINE_ITEM, Integer.valueOf( index ), onlineOutput, gwidsToString( onlineInputs ) );
       }
     } );
     logger().info( "%s: start(). writers count = %d", id(), Integer.valueOf( writers.size() ) ); //$NON-NLS-1$
@@ -147,5 +149,14 @@ public class SkNetNodeSkatlet
   // ------------------------------------------------------------------------------------
   // private methods
   //
+  private static String gwidsToString( IGwidList aGwids ) {
+    TsNullArgumentRtException.checkNull( aGwids );
+    StringBuilder sb = new StringBuilder();
+    for( Gwid gwid : aGwids ) {
+      sb.append( gwid );
+      sb.append( '\n' );
+    }
+    return sb.toString();
+  }
 
 }

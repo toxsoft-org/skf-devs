@@ -18,6 +18,9 @@ interface ISkResources {
   String STR_RTD_HEALTH_GWID_D =
       "Идентификатор текущего данного представляющего интегральную оценку состояния подключенных ресурсов.";
 
+  String MSG_ONLINE_ITEM = "online[%d]: output = %s, inputs = \n%s";
+  String MSG_HEALTH_ITEM = "health[%d]: output = %s, inputs = \n%s";
+
   String ERR_NOT_FOUND = "%s is not found";
 
   String ERR_DOES_NOT_HAVE_RRI  = "The class %s does not have the rri-param %s (rriParamInfo = null).";
