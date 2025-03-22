@@ -28,7 +28,7 @@ class SkNetNodeRtdOnlineWriter
   /**
    * Признак передачи данных через шлюз сервера
    */
-  private boolean foundTrasmitedMark = false;
+  private boolean trasmitedMark = false;
 
   /**
    * Конструктор.
@@ -63,24 +63,27 @@ class SkNetNodeRtdOnlineWriter
     IMap<Gwid, IOptionSet> allMarks = dataQuality.getResourcesMarks();
     for( Gwid gwid : dataQuality.resourceIds() ) {
       IOptionSet marks = allMarks.findByKey( gwid );
+      if( dataQuality.resourceIds().size() == 1 ) {
+        IStringList route = marks.getValobj( ISkGatewayHardConstants.TICKET_ROUTE, IStringList.EMPTY );
+        if( route.size() > 0 ) {
+          // Установка признака передачи данного через шлюз
+          trasmitedMark = true;
+        }
+      }
+      // Проверка состояния соединения
       IAtomicValue notConnected = marks.findByKey( ISkDataQualityService.TICKET_ID_NO_CONNECTION );
       if( notConnected == null || !notConnected.asBool() ) {
         return avValobj( EConnState.ONLINE );
       }
-      IStringList route = marks.getValobj( ISkGatewayHardConstants.TICKET_ROUTE, IStringList.EMPTY );
-      if( route.size() > 0 ) {
-        // Установка признака передачи данного через шлюз
-        foundTrasmitedMark = true;
-      }
     }
-    return avValobj( foundTrasmitedMark ? EConnState.UNKNOWN : EConnState.OFFLINE );
+    return avValobj( trasmitedMark ? EConnState.UNKNOWN : EConnState.OFFLINE );
   }
 
   @Override
   protected void doHandleValueChanged( IAtomicValue aPrevValue, IAtomicValue aNewValue ) {
     ISkDataQualityService dataQualityService = coreApi().getService( ISkDataQualityService.SERVICE_ID );
     IGwidList gwids = new GwidList( writeDataId() );
-    if( !foundTrasmitedMark && aNewValue.asValobj().equals( EConnState.ONLINE ) ) {
+    if( !trasmitedMark && aNewValue.asValobj().equals( EConnState.ONLINE ) ) {
       dataQualityService.addConnectedResources( gwids );
       return;
     }
