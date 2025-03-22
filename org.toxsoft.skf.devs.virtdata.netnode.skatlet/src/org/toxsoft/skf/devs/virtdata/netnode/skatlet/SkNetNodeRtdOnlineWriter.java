@@ -5,8 +5,10 @@ import static org.toxsoft.core.tslib.av.impl.AvUtils.*;
 import org.toxsoft.core.tslib.av.*;
 import org.toxsoft.core.tslib.av.opset.*;
 import org.toxsoft.core.tslib.coll.*;
+import org.toxsoft.core.tslib.coll.primtypes.*;
 import org.toxsoft.core.tslib.gw.gwid.*;
 import org.toxsoft.core.tslib.utils.errors.*;
+import org.toxsoft.skf.bridge.s5.lib.*;
 import org.toxsoft.skf.dq.lib.*;
 import org.toxsoft.skf.dq.virtdata.*;
 import org.toxsoft.uskat.classes.*;
@@ -49,14 +51,37 @@ class SkNetNodeRtdOnlineWriter
   //
   @Override
   protected IAtomicValue doCalculateValue() {
-    IMap<Gwid, IOptionSet> marks = dataQuality.getResourcesMarks();
+    if( dataQuality.resourceIds().size() == 0 ) {
+      // Нет подключенных ресурсов
+      return avValobj( EConnState.ONLINE );
+    }
+    // Признак передачи данных через шлюз сервера
+    boolean foundTrasmitedMark = false;
+    IMap<Gwid, IOptionSet> allMarks = dataQuality.getResourcesMarks();
     for( Gwid gwid : dataQuality.resourceIds() ) {
-      IAtomicValue notConnected = marks.findByKey( gwid ).findByKey( ISkDataQualityService.TICKET_ID_NO_CONNECTION );
+      IOptionSet marks = allMarks.findByKey( gwid );
+      IAtomicValue notConnected = marks.findByKey( ISkDataQualityService.TICKET_ID_NO_CONNECTION );
       if( notConnected == null || !notConnected.asBool() ) {
         return avValobj( EConnState.ONLINE );
       }
+      IStringList route = marks.getValobj( ISkGatewayHardConstants.TICKET_ROUTE, IStringList.EMPTY );
+      if( route.size() > 0 ) {
+        // Установка признака передачи данного через шлюз
+        foundTrasmitedMark = true;
+      }
     }
-    return avValobj( EConnState.OFFLINE );
+    return avValobj( foundTrasmitedMark ? EConnState.UNKNOWN : EConnState.OFFLINE );
+  }
+
+  @Override
+  protected void doHandleValueChanged( IAtomicValue aPrevValue, IAtomicValue aNewValue ) {
+    ISkDataQualityService dataQualityService = coreApi().getService( ISkDataQualityService.SERVICE_ID );
+    IGwidList gwids = new GwidList( writeDataId() );
+    if( aNewValue.asValobj().equals( EConnState.ONLINE ) ) {
+      dataQualityService.addConnectedResources( gwids );
+      return;
+    }
+    dataQualityService.removeConnectedResources( gwids );
   }
 
   @Override

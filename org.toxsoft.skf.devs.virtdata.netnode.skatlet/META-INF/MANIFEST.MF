@@ -15,6 +15,7 @@ Require-Bundle: org.toxsoft.extlibs.log4j,
  org.toxsoft.skf.dq.lib,
  org.toxsoft.skf.dq.virtdata,
  org.toxsoft.skf.rri.lib,
+ org.toxsoft.skf.bridge.s5,
  org.toxsoft.skf.rri.virtdata
 Export-Package: org.toxsoft.skf.devs.virtdata.netnode.skatlet
 TsPluginContainerVersion: 2

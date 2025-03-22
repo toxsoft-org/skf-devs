@@ -114,11 +114,19 @@ class SkNetNodeRtdHealthWriter
       }
       totalCount += gwids.size();
     }
-    if( totalCount == 0 ) {
-      // Нет подключенных узлов
-      return avInt( 100 );
+    IAtomicValue retValue = avInt( (totalCount == 0 ? 100 : (100 * connectedCount) / totalCount) );
+    return retValue;
+  }
+
+  @Override
+  protected void doHandleValueChanged( IAtomicValue aPrevValue, IAtomicValue aNewValue ) {
+    IGwidList gwids = new GwidList( writeDataId() );
+    ISkDataQualityService dataQualityService = coreApi().getService( ISkDataQualityService.SERVICE_ID );
+    if( aNewValue.asInt() > 0 ) {
+      dataQualityService.addConnectedResources( gwids );
+      return;
     }
-    return avInt( (100 * connectedCount) / totalCount );
+    dataQualityService.removeConnectedResources( gwids );
   }
 
   @Override

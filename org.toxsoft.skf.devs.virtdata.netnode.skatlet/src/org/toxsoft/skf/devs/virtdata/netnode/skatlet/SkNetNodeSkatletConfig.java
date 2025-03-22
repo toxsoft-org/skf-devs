@@ -107,15 +107,6 @@ public final class SkNetNodeSkatletConfig {
   public static final String NETNODE_ONLINE_OUTPUT_PREFIX = SYBSYSTEM_ID_PREFIX + ".online.output";
 
   /**
-   * Префикс имени параметра определяющего значение выставляемое при отсутствии связи: {@link EConnState#OFFLINE} или
-   * {@link EConnState#UNKNOWN}.
-   * <p>
-   * Тип: {@link EAtomicType#VALOBJ} ({@link EConnState}).
-   */
-  public static final String NETNODE_ONLINE_OUTPUT_NOT_CONNECTED_VALUE =
-      SYBSYSTEM_ID_PREFIX + ".online.output.notConnectedValue";
-
-  /**
    * Префикс имен списка параметров идентификаторов любых подключенных к сетевому узлу ресурсов с помощью которого
    * формируется значение параметра {@link ISkNetNode#RTDID_ONLINE}.
    * <p>

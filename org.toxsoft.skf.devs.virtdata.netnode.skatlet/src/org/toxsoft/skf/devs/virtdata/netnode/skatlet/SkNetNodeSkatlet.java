@@ -72,20 +72,7 @@ public class SkNetNodeSkatlet
         Gwid healthOutput = avHealthOutput.asValobj();
         IGwidList healthInputs = expandGwids( coreApi, (IGwidList)avHealthInputs.asValobj(), EGwidKind.GW_RTDATA );
         String healthEnabled = avHealthInputsEnabled.asString();
-        writers.add( new SkNetNodeRtdHealthWriter( coreApi, healthOutput, healthInputs, healthEnabled, logger() ) {
-
-          @Override
-          protected void doHandleValue( IAtomicValue aPrevValue, IAtomicValue aNewValue ) {
-            ISkDataQualityService dataQualityService = coreApi.getService( ISkDataQualityService.SERVICE_ID );
-            IGwidList gwids = new GwidList( healthOutput );
-            if( aNewValue.asInt() > 0 ) {
-              dataQualityService.addConnectedResources( gwids );
-              return;
-            }
-            dataQualityService.removeConnectedResources( gwids );
-          }
-
-        } );
+        writers.add( new SkNetNodeRtdHealthWriter( coreApi, healthOutput, healthInputs, healthEnabled, logger() ) );
         logger().info( MSG_HEALTH_ITEM, Integer.valueOf( index ), healthOutput, gwidsToString( healthInputs ) );
       }
       // online
@@ -105,19 +92,7 @@ public class SkNetNodeSkatlet
         }
         Gwid onlineOutput = avOnlineOutput.asValobj();
         IGwidList onlineInputs = expandGwids( coreApi, (IGwidList)avOnlineInputs.asValobj(), EGwidKind.GW_RTDATA );
-        writers.add( new SkNetNodeRtdOnlineWriter( coreApi, onlineOutput, onlineInputs ) {
-
-          @Override
-          protected void doHandleValue( IAtomicValue aPrevValue, IAtomicValue aNewValue ) {
-            ISkDataQualityService dataQualityService = coreApi.getService( ISkDataQualityService.SERVICE_ID );
-            IGwidList gwids = new GwidList( onlineOutput );
-            if( aNewValue.asValobj().equals( EConnState.ONLINE ) ) {
-              dataQualityService.addConnectedResources( gwids );
-              return;
-            }
-            dataQualityService.removeConnectedResources( gwids );
-          }
-        } );
+        writers.add( new SkNetNodeRtdOnlineWriter( coreApi, onlineOutput, onlineInputs ) );
         logger().info( MSG_ONLINE_ITEM, Integer.valueOf( index ), onlineOutput, gwidsToString( onlineInputs ) );
       }
     } );
