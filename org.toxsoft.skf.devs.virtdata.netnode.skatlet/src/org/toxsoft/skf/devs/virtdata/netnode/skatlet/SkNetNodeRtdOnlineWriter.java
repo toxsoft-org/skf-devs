@@ -83,11 +83,16 @@ class SkNetNodeRtdOnlineWriter
   protected void doHandleValueChanged( IAtomicValue aPrevValue, IAtomicValue aNewValue ) {
     ISkDataQualityService dataQualityService = coreApi().getService( ISkDataQualityService.SERVICE_ID );
     IGwidList gwids = new GwidList( writeDataId() );
-    if( !trasmitedMark && aNewValue.asValobj().equals( EConnState.ONLINE ) ) {
+    EConnState newState = aNewValue.asValobj();
+    if( !trasmitedMark && newState == EConnState.ONLINE ) {
+      // Установка качества данных connected (значение данного формируется на локальном узле)
       dataQualityService.addConnectedResources( gwids );
       return;
     }
-    dataQualityService.removeConnectedResources( gwids );
+    if( trasmitedMark ) {
+      // Снятие качества данных connected (значение данного формируется на ДРУГОМ локальном узле)
+      dataQualityService.removeConnectedResources( gwids );
+    }
   }
 
   @Override
