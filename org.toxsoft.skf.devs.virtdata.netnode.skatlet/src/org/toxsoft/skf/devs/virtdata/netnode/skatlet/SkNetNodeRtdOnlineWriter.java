@@ -26,6 +26,11 @@ class SkNetNodeRtdOnlineWriter
   private final SkVirtDataDataQualityReader dataQuality;
 
   /**
+   * Признак передачи данных через шлюз сервера
+   */
+  private boolean foundTrasmitedMark = false;
+
+  /**
    * Конструктор.
    *
    * @param aCoreApi {@link ISkCoreApi} API соединения.
@@ -55,8 +60,6 @@ class SkNetNodeRtdOnlineWriter
       // Нет подключенных ресурсов
       return avValobj( EConnState.ONLINE );
     }
-    // Признак передачи данных через шлюз сервера
-    boolean foundTrasmitedMark = false;
     IMap<Gwid, IOptionSet> allMarks = dataQuality.getResourcesMarks();
     for( Gwid gwid : dataQuality.resourceIds() ) {
       IOptionSet marks = allMarks.findByKey( gwid );
@@ -77,7 +80,7 @@ class SkNetNodeRtdOnlineWriter
   protected void doHandleValueChanged( IAtomicValue aPrevValue, IAtomicValue aNewValue ) {
     ISkDataQualityService dataQualityService = coreApi().getService( ISkDataQualityService.SERVICE_ID );
     IGwidList gwids = new GwidList( writeDataId() );
-    if( aNewValue.asValobj().equals( EConnState.ONLINE ) ) {
+    if( !foundTrasmitedMark && aNewValue.asValobj().equals( EConnState.ONLINE ) ) {
       dataQualityService.addConnectedResources( gwids );
       return;
     }
