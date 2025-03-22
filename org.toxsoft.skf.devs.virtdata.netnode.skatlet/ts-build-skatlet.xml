@@ -52,6 +52,9 @@
         <fileset dir="../../ts4-targets/ts4-target-skf-rri/lib">
            <include name="**/*.jar" />
         </fileset>
+        <fileset dir="../../ts4-targets/ts4-target-skf-bridge/lib">
+           <include name="**/*.jar" />
+        </fileset>
       </classpath>
     </javac>
     <jar destfile="${lib.dir}/${lib.jar}" manifest="META-INF/MANIFEST.MF" filesetmanifest="merge" manifestencoding="UTF-8" >
@@ -79,6 +82,7 @@
         <zipfileset src="../../ts4-targets/ts4-target-uskat/lib/org.toxsoft.uskat.virtdata-lib.jar" />
         <zipfileset src="../../ts4-targets/ts4-target-skf-dq/lib/org.toxsoft.skf.dq.virtdata-lib.jar" />
         <zipfileset src="../../ts4-targets/ts4-target-skf-rri/lib/org.toxsoft.skf.rri.virtdata-lib.jar" />
+        <zipfileset src="../../ts4-targets/ts4-target-skf-bridge/lib/org.toxsoft.skf.bridge.s5-lib.jar" />
       	
       	<zipfileset src="${lib.dir}/${lib.jar}" />
       </jar>
