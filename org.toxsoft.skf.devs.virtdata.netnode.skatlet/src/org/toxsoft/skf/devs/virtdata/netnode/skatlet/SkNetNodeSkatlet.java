@@ -54,14 +54,19 @@ public class SkNetNodeSkatlet
       while( true ) {
         int index = i++;
         IAtomicValue avHealthOutput = configs.findValue( NETNODE_HEALTH_OUTPUT_PREFIX + index );
+        IAtomicValue avHealthOutputPublic = configs.findValue( NETNODE_HEALTH_OUTPUT_PUBLIC_PREFIX + index );
         IAtomicValue avHealthInputs = configs.findValue( NETNODE_HEALTH_INPUTS_PREFIX + index );
         IAtomicValue avHealthInputsEnabled = configs.findValue( NETNODE_HEALTH_INPUTS_ENABLED_PREFIX + index );
 
-        if( avHealthOutput == null && avHealthInputs == null && avHealthInputsEnabled == null ) {
+        if( avHealthOutput == null && avHealthOutputPublic == null && avHealthInputs == null
+            && avHealthInputsEnabled == null ) {
           break;
         }
         if( avHealthOutput == null ) {
           throw new TsItemNotFoundRtException( ERR_NOT_FOUND, NETNODE_HEALTH_OUTPUT_PREFIX + index );
+        }
+        if( avHealthOutputPublic == null ) {
+          throw new TsItemNotFoundRtException( ERR_NOT_FOUND, NETNODE_HEALTH_OUTPUT_PUBLIC_PREFIX + index );
         }
         if( avHealthInputs == null ) {
           throw new TsItemNotFoundRtException( ERR_NOT_FOUND, NETNODE_HEALTH_INPUTS_PREFIX + index );
@@ -70,9 +75,11 @@ public class SkNetNodeSkatlet
           throw new TsItemNotFoundRtException( ERR_NOT_FOUND, NETNODE_HEALTH_INPUTS_ENABLED_PREFIX + index );
         }
         Gwid healthOutput = avHealthOutput.asValobj();
+        boolean healthPublic = avHealthOutputPublic.asBool();
         IGwidList healthInputs = expandGwids( coreApi, (IGwidList)avHealthInputs.asValobj(), EGwidKind.GW_RTDATA );
         String healthEnabled = avHealthInputsEnabled.asString();
-        writers.add( new SkNetNodeRtdHealthWriter( coreApi, healthOutput, healthInputs, healthEnabled, logger() ) );
+        writers.add( new SkNetNodeRtdHealthWriter( coreApi, healthOutput, healthInputs, healthEnabled, healthPublic,
+            logger() ) );
         logger().info( MSG_HEALTH_ITEM, Integer.valueOf( index ), healthOutput, gwidsToString( healthInputs ) );
       }
       // online

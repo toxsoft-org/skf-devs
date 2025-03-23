@@ -47,6 +47,15 @@ public final class SkNetNodeSkatletConfig {
   public static final String NETNODE_HEALTH_OUTPUT_PREFIX = SYBSYSTEM_ID_PREFIX + ".health.output";
 
   /**
+   * Префикс имени параметра-требования публикации в службе качества данных ресурса представляющего параметр
+   * "Интегральная оценка состояния подключенных узлов" {@link ISkNetNode#RTDID_HEALTH} (или его аналога в другом
+   * классе) у которого устанавливается значение параметра {@link ISkNetNode#RTDID_HEALTH}.
+   * <p>
+   * Тип: {@link EAtomicType#BOOLEAN}.
+   */
+  public static final String NETNODE_HEALTH_OUTPUT_PUBLIC_PREFIX = SYBSYSTEM_ID_PREFIX + ".health.output.public";
+
+  /**
    * Префикс имен списка параметров идентификаторов любых подключенных к сетевому узлу ресурсов с помощью которого
    * формируется значение параметра {@link ISkNetNode#RTDID_HEALTH}.
    * <p>

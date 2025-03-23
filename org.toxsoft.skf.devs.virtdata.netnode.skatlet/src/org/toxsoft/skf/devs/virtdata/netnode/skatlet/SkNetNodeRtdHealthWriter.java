@@ -55,7 +55,7 @@ class SkNetNodeRtdHealthWriter
    * @throws TsIllegalArgumentRtException в системе не найден параметр подключенного ресурса.
    */
   SkNetNodeRtdHealthWriter( ISkCoreApi aCoreApi, Gwid aOutput, IGwidList aInputs, String aRriEnabled,
-      ILogger aLogger ) {
+      boolean aHealthPublic, ILogger aLogger ) {
     super( aCoreApi, aOutput );
     TsNullArgumentRtException.checkNull( aInputs );
     dataQuality = new SkVirtDataDataQualityReader( aCoreApi, aInputs, this );
@@ -79,6 +79,11 @@ class SkNetNodeRtdHealthWriter
       objInputs.right().add( g );
     }
     rri.addRriIds( tmpRriIds );
+    if( aHealthPublic ) {
+      IGwidList gwids = new GwidList( writeDataId() );
+      ISkDataQualityService dataQualityService = coreApi().getService( ISkDataQualityService.SERVICE_ID );
+      dataQualityService.addConnectedResources( gwids );
+    }
     // Write current value
     onGenericChangeEvent( this );
   }
@@ -120,13 +125,7 @@ class SkNetNodeRtdHealthWriter
 
   @Override
   protected void doHandleValueChanged( IAtomicValue aPrevValue, IAtomicValue aNewValue ) {
-    IGwidList gwids = new GwidList( writeDataId() );
-    ISkDataQualityService dataQualityService = coreApi().getService( ISkDataQualityService.SERVICE_ID );
-    if( aNewValue.asInt() > 0 ) {
-      dataQualityService.addConnectedResources( gwids );
-      return;
-    }
-    dataQualityService.removeConnectedResources( gwids );
+    // nop
   }
 
   @Override
