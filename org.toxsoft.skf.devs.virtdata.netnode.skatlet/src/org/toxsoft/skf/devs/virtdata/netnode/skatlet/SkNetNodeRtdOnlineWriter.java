@@ -28,7 +28,7 @@ class SkNetNodeRtdOnlineWriter
   /**
    * Признак передачи данных через шлюз сервера
    */
-  private boolean trasmitedMark = false;
+  private boolean trasmittedMark = false;
 
   /**
    * Конструктор.
@@ -63,11 +63,12 @@ class SkNetNodeRtdOnlineWriter
     IMap<Gwid, IOptionSet> allMarks = dataQuality.getResourcesMarks();
     for( Gwid gwid : dataQuality.resourceIds() ) {
       IOptionSet marks = allMarks.findByKey( gwid );
-      if( dataQuality.resourceIds().size() == 1 ) {
+      if( dataQuality.resourceIds().size() == 1 && dataQuality.resourceIds().first().equals( writeDataId() ) ) {
+        // Вход совпадает с выходом, проверка того, что значения передаются через шлюз для формирования UNKNOWN
         IStringList route = marks.getValobj( ISkGatewayHardConstants.TICKET_ROUTE, IStringList.EMPTY );
         if( route.size() > 0 ) {
           // Установка признака передачи данного через шлюз
-          trasmitedMark = true;
+          trasmittedMark = true;
         }
       }
       // Проверка состояния соединения
@@ -76,7 +77,7 @@ class SkNetNodeRtdOnlineWriter
         return avValobj( EConnState.ONLINE );
       }
     }
-    return avValobj( trasmitedMark ? EConnState.UNKNOWN : EConnState.OFFLINE );
+    return avValobj( trasmittedMark ? EConnState.UNKNOWN : EConnState.OFFLINE );
   }
 
   @Override
@@ -84,12 +85,12 @@ class SkNetNodeRtdOnlineWriter
     ISkDataQualityService dataQualityService = coreApi().getService( ISkDataQualityService.SERVICE_ID );
     IGwidList gwids = new GwidList( writeDataId() );
     EConnState newState = aNewValue.asValobj();
-    if( !trasmitedMark && newState == EConnState.ONLINE ) {
+    if( !trasmittedMark && newState == EConnState.ONLINE ) {
       // Установка качества данных connected (значение данного формируется на локальном узле)
       dataQualityService.addConnectedResources( gwids );
       return;
     }
-    if( trasmitedMark ) {
+    if( trasmittedMark ) {
       // Снятие качества данных connected (значение данного формируется на ДРУГОМ локальном узле)
       dataQualityService.removeConnectedResources( gwids );
     }
