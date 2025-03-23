@@ -91,7 +91,7 @@ class SkNetNodeRtdOnlineWriter
       return;
     }
     if( !trasmittedMark && newState == EConnState.OFFLINE ) {
-      // Установка качества данных connected (значение данного формируется на локальном узле)
+      // Снятие качества данных connected (значение данного формируется на локальном узле)
       dataQualityService.removeConnectedResources( gwids );
       return;
     }
