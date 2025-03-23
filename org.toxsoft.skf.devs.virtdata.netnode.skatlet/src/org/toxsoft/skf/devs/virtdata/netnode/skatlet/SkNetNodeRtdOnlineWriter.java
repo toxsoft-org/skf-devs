@@ -90,6 +90,11 @@ class SkNetNodeRtdOnlineWriter
       dataQualityService.addConnectedResources( gwids );
       return;
     }
+    if( !trasmittedMark && newState == EConnState.OFFLINE ) {
+      // Установка качества данных connected (значение данного формируется на локальном узле)
+      dataQualityService.removeConnectedResources( gwids );
+      return;
+    }
     if( trasmittedMark ) {
       // Снятие качества данных connected (значение данного формируется на ДРУГОМ локальном узле)
       dataQualityService.removeConnectedResources( gwids );
