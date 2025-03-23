@@ -56,10 +56,10 @@ class SkNetNodeRtdOnlineWriter
   //
   @Override
   protected IAtomicValue doCalculateValue() {
-    if( dataQuality.resourceIds().size() == 0 ) {
-      // Нет подключенных ресурсов
-      return avValobj( EConnState.ONLINE );
-    }
+    // if( dataQuality.resourceIds().size() == 0 ) {
+    // // Нет подключенных ресурсов
+    // return avValobj( EConnState.ONLINE );
+    // }
     IMap<Gwid, IOptionSet> allMarks = dataQuality.getResourcesMarks();
     for( Gwid gwid : dataQuality.resourceIds() ) {
       IOptionSet marks = allMarks.findByKey( gwid );
