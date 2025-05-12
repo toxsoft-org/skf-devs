@@ -8,6 +8,7 @@ import org.toxsoft.core.tsgui.bricks.quant.*;
 import org.toxsoft.core.tsgui.valed.impl.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.editors.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.km5.*;
+import org.toxsoft.skf.reports.gui.panels.valed.*;
 import org.toxsoft.uskat.core.api.*;
 import org.toxsoft.uskat.core.devapi.*;
 import org.toxsoft.uskat.core.gui.km5.*;
@@ -45,6 +46,9 @@ public class QuantRtBrowserGui
     }
     if( !vcReg.hasFactory( ValedAvValobjSkidListEditor.FACTORY_NAME ) ) {
       vcReg.registerFactory( ValedAvValobjSkidListEditor.FACTORY );
+    }
+    if( !vcReg.hasFactory( ValedAvValobjGwidEditor.FACTORY_NAME ) ) {
+      vcReg.registerFactory( ValedAvValobjGwidEditor.FACTORY );
     }
   }
 
