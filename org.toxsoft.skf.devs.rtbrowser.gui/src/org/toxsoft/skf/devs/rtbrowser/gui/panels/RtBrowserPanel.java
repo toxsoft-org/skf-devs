@@ -20,13 +20,10 @@ import org.toxsoft.core.tsgui.m5.gui.*;
 import org.toxsoft.core.tsgui.m5.model.*;
 import org.toxsoft.core.tsgui.panels.*;
 import org.toxsoft.core.tsgui.utils.layout.*;
-import org.toxsoft.core.tslib.coll.*;
-import org.toxsoft.core.tslib.coll.impl.*;
 import org.toxsoft.core.tslib.coll.primtypes.*;
 import org.toxsoft.core.tslib.coll.primtypes.impl.*;
 import org.toxsoft.core.tslib.gw.skid.*;
 import org.toxsoft.core.tslib.utils.*;
-import org.toxsoft.skf.alarms.lib.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.attrs.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.cmds.*;
@@ -409,22 +406,26 @@ public class RtBrowserPanel
     TsDialogInfo cdi = new TsDialogInfo( tsContext(), null, DLG_C_SELECT_CLASS, DLG_T_SELECT_CLASS, 0 );
     cdi.setMinSizeShellRelative( 60, 90 );
     IM5LifecycleManager<ISkClassInfo> lm = model.getLifecycleManager( null );
-    // фильтруем классы с которыми не работает ISkSysdescr
-    IM5ItemsProvider<ISkClassInfo> itemsProvider = () -> {
-      IListEdit<ISkClassInfo> retVal = new ElemArrayList<>();
-      for( ISkClassInfo ci : lm.itemsProvider().listItems() ) {
-        // dima 05.12.24 fix NPE , TODO i don't understand but without SkObject RtBrowser fall down
-        // if( ci.id().equals( IGwHardConstants.GW_ROOT_CLASS_ID ) ) {
-        // continue;
-        // }
-        String claimerId = conn.coreApi().sysdescr().determineClassClaimingServiceId( ci.id() );
-        if( claimerId.equals( ISkSysdescr.SERVICE_ID ) || claimerId.equals( ISkAlarmService.SERVICE_ID ) ) {
-          retVal.add( ci );
-        }
-      }
-      return retVal;
-    };
-    return M5GuiUtils.askSelectItem( cdi, model, null, itemsProvider, null );
+
+    // GOGA --- 2025-06-11
+    // // фильтруем классы с которыми не работает ISkSysdescr
+    // IM5ItemsProvider<ISkClassInfo> itemsProvider = () -> {
+    // IListEdit<ISkClassInfo> retVal = new ElemArrayList<>();
+    // for( ISkClassInfo ci : lm.itemsProvider().listItems() ) {
+    // // dima 05.12.24 fix NPE , TODO i don't understand but without SkObject RtBrowser fall down
+    // // if( ci.id().equals( IGwHardConstants.GW_ROOT_CLASS_ID ) ) {
+    // // continue;
+    // // }
+    // String claimerId = conn.coreApi().sysdescr().determineClassClaimingServiceId( ci.id() );
+    // if( claimerId.equals( ISkSysdescr.SERVICE_ID ) || claimerId.equals( ISkAlarmService.SERVICE_ID ) ) {
+    // retVal.add( ci );
+    // }
+    // }
+    // return retVal;
+    // };
+    // ---
+
+    return M5GuiUtils.askSelectItem( cdi, model, null, lm.itemsProvider(), null );
   }
 
   /**
