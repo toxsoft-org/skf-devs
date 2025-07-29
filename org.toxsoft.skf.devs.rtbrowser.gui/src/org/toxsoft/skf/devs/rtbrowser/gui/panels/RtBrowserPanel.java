@@ -234,6 +234,14 @@ public class RtBrowserPanel
     cmdEditor = new CommandsBrowser( conn.coreApi(), tsContext() );
     evtEditor = new EventsBrowser( conn.coreApi(), tsContext() );
     linkEditor = new LinksBrowser( conn.coreApi(), tsContext(), this );
+
+    CTabItem gwidTabItem = new CTabItem( mainTabFolder, SWT.NONE );
+    gwidTabItem.setText( "rt explorer" );
+
+    // Composite contentPanel = new Composite( this, SWT.NONE );
+    RtDataExplorerPanel explorerPanel = new RtDataExplorerPanel( mainTabFolder, tsContext() );
+    gwidTabItem.setControl( explorerPanel );
+
     aParent.layout( true );
   }
 

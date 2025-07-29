@@ -16,7 +16,6 @@ import org.toxsoft.core.tsgui.panels.*;
 import org.toxsoft.core.tsgui.utils.layout.*;
 import org.toxsoft.core.tslib.gw.gwid.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.rtexplorer.*;
-import org.toxsoft.skf.devs.rtbrowser.gui.widgets.*;
 import org.toxsoft.skf.reports.gui.panels.*;
 import org.toxsoft.uskat.core.api.sysdescr.*;
 import org.toxsoft.uskat.core.connection.*;
@@ -39,11 +38,6 @@ public class RtDataExplorerPanel
   private Composite  tbHolder;
   private CTabFolder tabFolder;
 
-  private CLabelContribution classLabel;
-  private TextContribution   fldFilterText;
-  private CTabFolder         mainTabFolder;
-  private Composite          mainTabPanel;
-
   /**
    * Конструктор компоненты
    *
@@ -59,19 +53,9 @@ public class RtDataExplorerPanel
     addDisposeListener( aE -> {
       // nop
     } );
-    // Вставляем панель для главной tab панели
-    mainTabPanel = new Composite( this, SWT.NONE );
-    mainTabPanel.setLayout( new BorderLayout() );
-    mainTabFolder = new CTabFolder( mainTabPanel, SWT.BORDER );
-    mainTabFolder.setLayout( new BorderLayout() );
-    CTabItem mainTabItem = new CTabItem( mainTabFolder, SWT.NONE );
-    mainTabItem.setText( STR_MAIN_EDITOR );
-    mainTabFolder.setSelection( 0 );
 
     // Composite contentPanel = new Composite( this, SWT.NONE );
-    Composite contentPanel = new Composite( mainTabFolder, SWT.NONE );
-    mainTabItem.setControl( contentPanel );
-
+    Composite contentPanel = new Composite( this, SWT.NONE );
     contentPanel.setLayout( new BorderLayout() );
 
     tbHolder = new Composite( contentPanel, SWT.NONE );
