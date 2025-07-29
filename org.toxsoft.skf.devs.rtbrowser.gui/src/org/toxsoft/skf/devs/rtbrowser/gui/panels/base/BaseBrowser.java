@@ -67,7 +67,7 @@ abstract public class BaseBrowser
     viewer.setInput( rows.toArray() );
   }
 
-  private void createTableColumns() {
+  protected void createTableColumns() {
     // первая колонка - название параметра
     TableViewerColumn nameColumn = new TableViewerColumn( viewer, SWT.NONE );
     nameColumn.getColumn().setText( nameColumnTitle() );

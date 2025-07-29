@@ -19,7 +19,7 @@ import org.toxsoft.uskat.core.api.sysdescr.dto.*;
  *
  * @author dima
  */
-class RtDataBrowserRow
+public class RtDataBrowserRow
     extends BaseBrowserRow {
 
   /**

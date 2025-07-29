@@ -27,7 +27,7 @@ public class BaseRtDataValueEditingSupport
   protected ValedCellEditor<IAtomicValue> boolEditor;
   protected ValedCellEditor<IAtomicValue> floatEditor;
 
-  BaseRtDataValueEditingSupport( TableViewer aViewer, ISkCoreApi aCoreApi, ITsGuiContext aTsContext ) {
+  protected BaseRtDataValueEditingSupport( TableViewer aViewer, ISkCoreApi aCoreApi, ITsGuiContext aTsContext ) {
     super( aViewer );
     coreApi = aCoreApi;
     tsGuiContext = aTsContext;
