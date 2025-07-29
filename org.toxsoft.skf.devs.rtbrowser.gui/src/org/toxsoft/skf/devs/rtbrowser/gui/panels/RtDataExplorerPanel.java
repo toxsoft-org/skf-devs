@@ -11,13 +11,13 @@ import org.eclipse.swt.custom.*;
 import org.eclipse.swt.graphics.*;
 import org.eclipse.swt.widgets.*;
 import org.toxsoft.core.tsgui.bricks.ctx.*;
+import org.toxsoft.core.tsgui.dialogs.datarec.*;
 import org.toxsoft.core.tsgui.graphics.icons.*;
 import org.toxsoft.core.tsgui.panels.*;
 import org.toxsoft.core.tsgui.utils.layout.*;
 import org.toxsoft.core.tslib.gw.gwid.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.rtexplorer.*;
 import org.toxsoft.skf.reports.gui.panels.*;
-import org.toxsoft.uskat.core.api.sysdescr.*;
 import org.toxsoft.uskat.core.connection.*;
 import org.toxsoft.uskat.core.gui.conn.*;
 
@@ -115,10 +115,19 @@ public class RtDataExplorerPanel
 
       @Override
       public void run() {
-        Gwid selGwid = PanelGwidSelector.selectGwid( null, tsContext(), ESkClassPropKind.RTDATA, null );
+        IDialogPanelCreator<IGwidList, ITsGuiContext> creator = PanelGwidListSelector::new;
 
-        dataEditor.addGwid( selGwid );
+        ITsDialogInfo dlgInfo = new TsDialogInfo( tsContext(), getShell(), "Выбор Gwid", "Выбор Gwid", 0 );// ,
+                                                                                                           // ITsDialogConstants.DF_NONMODAL
+                                                                                                           // );
+        TsDialog<IGwidList, ITsGuiContext> d = new TsDialog<>( dlgInfo, null, tsContext(), creator );
 
+        IGwidList selGwid = d.execData();
+        // Gwid selGwid = PanelGwidSelector.selectGwid( null, tsContext(), ESkClassPropKind.RTDATA, null );
+
+        if( selGwid != null ) {
+          dataEditor.addGwids( selGwid );
+        }
       }
 
     };

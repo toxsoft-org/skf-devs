@@ -118,6 +118,16 @@ public class RtDataExplorer
     resume();
   }
 
+  public void addGwids( IGwidList aSelGwids ) {
+
+    pause();
+    disposeResources();
+    gwids.addAll( aSelGwids );
+    createModel();
+    recreateView();
+    resume();
+  }
+
   public void removeAllGwids() {
 
     pause();

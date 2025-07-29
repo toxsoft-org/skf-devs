@@ -6,11 +6,13 @@ import static org.toxsoft.skf.devs.rtbrowser.gui.panels.ISkResources.*;
 import static org.toxsoft.uskat.core.gui.km5.sded.IKM5SdedConstants.*;
 
 import org.eclipse.jface.action.*;
+import org.eclipse.jface.dialogs.*;
 import org.eclipse.jface.resource.*;
 import org.eclipse.swt.*;
 import org.eclipse.swt.custom.*;
 import org.eclipse.swt.events.*;
 import org.eclipse.swt.graphics.*;
+import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
 import org.toxsoft.core.tsgui.bricks.ctx.*;
 import org.toxsoft.core.tsgui.dialogs.datarec.*;
@@ -19,7 +21,7 @@ import org.toxsoft.core.tsgui.m5.*;
 import org.toxsoft.core.tsgui.m5.gui.*;
 import org.toxsoft.core.tsgui.m5.model.*;
 import org.toxsoft.core.tsgui.panels.*;
-import org.toxsoft.core.tsgui.utils.layout.*;
+import org.toxsoft.core.tsgui.utils.layout.BorderLayout;
 import org.toxsoft.core.tslib.coll.primtypes.*;
 import org.toxsoft.core.tslib.coll.primtypes.impl.*;
 import org.toxsoft.core.tslib.gw.skid.*;
@@ -360,6 +362,22 @@ public class RtBrowserPanel
     actBrowseClass.setToolTipText( STR_SELECT_CLASS );
     tbm.add( actBrowseClass );
 
+    Action actBrowseGwids = new Action( "browseGwids", IAction.AS_PUSH_BUTTON ) { //$NON-NLS-1$
+
+      @Override
+      public void run() {
+
+        ExplorerDialog d = new ExplorerDialog( null, tsContext() );
+
+        d.open();
+      }
+
+    };
+    actBrowseGwids
+        .setImageDescriptor( iconManager().loadStdDescriptor( ICONID_EDIT_FIND_REPLACE, EIconSize.IS_24X24 ) );
+    actBrowseGwids.setToolTipText( "Rt data explorer" );
+    tbm.add( actBrowseGwids );
+
     tbm.update( true );
     tb.pack();
     tb.getParent().layout( true );
@@ -448,5 +466,35 @@ public class RtBrowserPanel
     RtSubBrowserPanel subPanel = new RtSubBrowserPanel( mainTabFolder, tsContext(), aSkidList, this );
     subTabItem.setControl( subPanel );
     mainTabFolder.getParent().layout( true );
+  }
+
+  static class ExplorerDialog
+      extends TitleAreaDialog {
+
+    private ITsGuiContext context;
+
+    public ExplorerDialog( Shell aParentShell, ITsGuiContext aContext ) {
+      super( aParentShell );
+      context = aContext;
+      int style = getShellStyle() | SWT.RESIZE | SWT.CLOSE;
+
+      style = style & ~SWT.APPLICATION_MODAL;
+      style |= SWT.MODELESS;
+
+      setShellStyle( style );
+
+    }
+
+    @Override
+    protected Control createDialogArea( Composite aParent ) {
+      Composite container = new Composite( aParent, SWT.NONE );
+      container.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true ) );
+      container.setLayout( new BorderLayout() );
+      RtDataExplorerPanel explorerPanel = new RtDataExplorerPanel( container, context );
+      explorerPanel.setLayoutData( BorderLayout.CENTER );
+      explorerPanel.setSize( 400, 300 );
+      return explorerPanel;
+    }
+
   }
 }
