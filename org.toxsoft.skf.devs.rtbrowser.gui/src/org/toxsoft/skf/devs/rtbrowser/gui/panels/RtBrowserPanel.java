@@ -479,7 +479,7 @@ public class RtBrowserPanel
       int style = getShellStyle() | SWT.RESIZE | SWT.CLOSE;
 
       style = style & ~SWT.APPLICATION_MODAL;
-      style |= SWT.MODELESS;
+      style |= SWT.ON_TOP;
 
       setShellStyle( style );
 
