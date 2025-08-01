@@ -39,8 +39,6 @@ import org.toxsoft.uskat.core.api.sysdescr.dto.*;
 import org.toxsoft.uskat.core.connection.*;
 import org.toxsoft.uskat.core.gui.conn.*;
 
-import ru.toxsoft.nm.gui.events.*;
-
 /**
  * Панель просмотра и редактирования значений полей:
  * <li>attrs</li>
@@ -381,19 +379,19 @@ public class RtBrowserPanel
     tbm.add( actBrowseGwids );
 
     // dima 31.07.25 added for debug NM events
-    Action actBrowseNMEvents = new Action( "события НМ", IAction.AS_PUSH_BUTTON ) { //$NON-NLS-1$
-
-      @Override
-      public void run() {
-        LiveEventsDialog d = new LiveEventsDialog( null, tsContext() );
-        d.open();
-      }
-
-    };
-    actBrowseNMEvents
-        .setImageDescriptor( iconManager().loadStdDescriptor( ICONID_FILE_TYPE_SPREADSHEET, EIconSize.IS_24X24 ) );
-    actBrowseNMEvents.setToolTipText( "Окно живых событий" );
-    tbm.add( actBrowseNMEvents );
+    // Action actBrowseNMEvents = new Action( "события НМ", IAction.AS_PUSH_BUTTON ) { //$NON-NLS-1$
+    //
+    // @Override
+    // public void run() {
+    // LiveEventsDialog d = new LiveEventsDialog( null, tsContext() );
+    // d.open();
+    // }
+    //
+    // };
+    // actBrowseNMEvents
+    // .setImageDescriptor( iconManager().loadStdDescriptor( ICONID_FILE_TYPE_SPREADSHEET, EIconSize.IS_24X24 ) );
+    // actBrowseNMEvents.setToolTipText( "Окно живых событий" );
+    // tbm.add( actBrowseNMEvents );
 
     tbm.update( true );
     tb.pack();
