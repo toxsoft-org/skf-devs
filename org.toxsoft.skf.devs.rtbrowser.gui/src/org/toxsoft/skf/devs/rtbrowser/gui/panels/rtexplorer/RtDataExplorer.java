@@ -6,12 +6,18 @@ import org.toxsoft.core.tsgui.bricks.ctx.*;
 import org.toxsoft.core.tslib.bricks.strid.coll.*;
 import org.toxsoft.core.tslib.gw.gwid.*;
 import org.toxsoft.core.tslib.gw.skid.*;
+import org.toxsoft.skf.devs.rtbrowser.gui.panels.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.ISkResources;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.base.*;
 import org.toxsoft.uskat.core.*;
 import org.toxsoft.uskat.core.api.sysdescr.*;
 import org.toxsoft.uskat.core.api.sysdescr.dto.*;
 
+/**
+ * Реализация компоненты просмотра и редактирования текущих данных {@link IRtBrowserTable} с объектами разных классов.
+ *
+ * @author max
+ */
 public class RtDataExplorer
     extends BaseBrowser {
 
@@ -47,7 +53,7 @@ public class RtDataExplorer
       @Override
       public void update( ViewerCell aCell ) {
         RtDataExplorerRow row = (RtDataExplorerRow)aCell.getElement();
-        aCell.setText( row.getClassId() );
+        aCell.setText( row.getClassName() );
       }
 
     } );
@@ -58,13 +64,13 @@ public class RtDataExplorer
     columnName = "Объект";
     objColumn.getColumn().setText( columnName );
     objColumn.getColumn().setToolTipText( "Объект" );
-    objColumn.getColumn().setWidth( 90 );
+    objColumn.getColumn().setWidth( 150 );
     objColumn.setLabelProvider( new CellLabelProvider() {
 
       @Override
       public void update( ViewerCell aCell ) {
         RtDataExplorerRow row = (RtDataExplorerRow)aCell.getElement();
-        aCell.setText( row.getObjId() );
+        aCell.setText( row.getObjName() );
       }
 
     } );
@@ -99,7 +105,7 @@ public class RtDataExplorer
       // получаем полное описание rtData
       IStridablesList<IDtoRtdataInfo> dataInfoes = classInfo.rtdata().list();
       IDtoRtdataInfo rtDataInfo = dataInfoes.findByKey( rtDataGwid.propId() );
-      rows.add( new RtDataExplorerRow( coreApi, new SkidList( rtDataGwid.skid() ), rtDataInfo ) );
+      rows.add( new RtDataExplorerRow( coreApi, rtDataGwid.skid(), rtDataInfo ) );
     }
   }
 
