@@ -44,16 +44,17 @@ public class RtDataExplorer
     // название колонки берем по имени объекта
     // ISkObject obj = coreApi.objService().find( objSkid );
     // String columnName = obj.nmName().isBlank() ? obj.id() : obj.nmName() + " [" + objSkid + "]";
-    String columnName = "Класс";
+    String columnName = "Gwid";
     clsColumn.getColumn().setText( columnName );
-    clsColumn.getColumn().setToolTipText( "Класс" );
+    clsColumn.getColumn().setToolTipText( "Gwid" );
     clsColumn.getColumn().setWidth( 90 );
     clsColumn.setLabelProvider( new CellLabelProvider() {
 
       @Override
       public void update( ViewerCell aCell ) {
         RtDataExplorerRow row = (RtDataExplorerRow)aCell.getElement();
-        aCell.setText( row.getClassName() );
+        // aCell.setText( row.getClassName() );
+        aCell.setText( row.getGwid().canonicalString() );
       }
 
     } );
@@ -61,9 +62,9 @@ public class RtDataExplorer
     // название колонки берем по имени объекта
     // ISkObject obj = coreApi.objService().find( objSkid );
     // String columnName = obj.nmName().isBlank() ? obj.id() : obj.nmName() + " [" + objSkid + "]";
-    columnName = "Объект";
+    columnName = "Описание";
     objColumn.getColumn().setText( columnName );
-    objColumn.getColumn().setToolTipText( "Объект" );
+    objColumn.getColumn().setToolTipText( "Описание" );
     objColumn.getColumn().setWidth( 150 );
     objColumn.setLabelProvider( new CellLabelProvider() {
 
@@ -74,7 +75,7 @@ public class RtDataExplorer
       }
 
     } );
-    super.createTableColumns();
+    // super.createTableColumns();
     TableViewerColumn valColumn = new TableViewerColumn( viewer, SWT.NONE );
     // название колонки берем по имени объекта
     // ISkObject obj = coreApi.objService().find( objSkid );

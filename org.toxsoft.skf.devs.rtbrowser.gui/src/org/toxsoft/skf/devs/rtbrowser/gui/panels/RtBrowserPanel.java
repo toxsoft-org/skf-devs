@@ -6,7 +6,7 @@ import static org.toxsoft.skf.devs.rtbrowser.gui.panels.ISkResources.*;
 import static org.toxsoft.uskat.core.gui.km5.sded.IKM5SdedConstants.*;
 
 import org.eclipse.jface.action.*;
-import org.eclipse.jface.dialogs.*;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.resource.*;
 import org.eclipse.swt.*;
 import org.eclipse.swt.custom.*;
@@ -38,6 +38,8 @@ import org.toxsoft.uskat.core.api.sysdescr.*;
 import org.toxsoft.uskat.core.api.sysdescr.dto.*;
 import org.toxsoft.uskat.core.connection.*;
 import org.toxsoft.uskat.core.gui.conn.*;
+
+import ru.toxsoft.nm.gui.events.*;
 
 /**
  * Панель просмотра и редактирования значений полей:
@@ -379,19 +381,19 @@ public class RtBrowserPanel
     tbm.add( actBrowseGwids );
 
     // dima 31.07.25 added for debug NM events
-    // Action actBrowseNMEvents = new Action( "события НМ", IAction.AS_PUSH_BUTTON ) { //$NON-NLS-1$
-    //
-    // @Override
-    // public void run() {
-    // LiveEventsDialog d = new LiveEventsDialog( null, tsContext() );
-    // d.open();
-    // }
-    //
-    // };
-    // actBrowseNMEvents
-    // .setImageDescriptor( iconManager().loadStdDescriptor( ICONID_FILE_TYPE_SPREADSHEET, EIconSize.IS_24X24 ) );
-    // actBrowseNMEvents.setToolTipText( "Окно живых событий" );
-    // tbm.add( actBrowseNMEvents );
+    Action actBrowseNMEvents = new Action( "события НМ", IAction.AS_PUSH_BUTTON ) { //$NON-NLS-1$
+
+      @Override
+      public void run() {
+        LiveEventsDialog d = new LiveEventsDialog( null, tsContext() );
+        d.open();
+      }
+
+    };
+    actBrowseNMEvents
+        .setImageDescriptor( iconManager().loadStdDescriptor( ICONID_FILE_TYPE_SPREADSHEET, EIconSize.IS_24X24 ) );
+    actBrowseNMEvents.setToolTipText( "Окно живых событий" );
+    tbm.add( actBrowseNMEvents );
 
     tbm.update( true );
     tb.pack();
@@ -484,20 +486,15 @@ public class RtBrowserPanel
   }
 
   static class ExplorerDialog
-      extends TitleAreaDialog {
+      extends Dialog {
 
     private ITsGuiContext context;
 
     public ExplorerDialog( Shell aParentShell, ITsGuiContext aContext ) {
       super( aParentShell );
       context = aContext;
-      int style = getShellStyle() | SWT.RESIZE | SWT.CLOSE;
-
-      style = style & ~SWT.APPLICATION_MODAL;
-      style |= SWT.ON_TOP;
-
-      setShellStyle( style );
-
+      setShellStyle( SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.ON_TOP | SWT.RESIZE );
+      setBlockOnOpen( false );
     }
 
     @Override
@@ -507,8 +504,18 @@ public class RtBrowserPanel
       container.setLayout( new BorderLayout() );
       RtDataExplorerPanel explorerPanel = new RtDataExplorerPanel( container, context );
       explorerPanel.setLayoutData( BorderLayout.CENTER );
-      explorerPanel.setSize( 400, 300 );
       return explorerPanel;
+    }
+
+    @Override
+    protected Point getInitialSize() {
+      return new Point( 750, 250 );
+    }
+
+    @Override
+    protected void createButtonsForButtonBar( Composite parent ) {
+      // no buttons
+      // createButton( parent, IDialogConstants.CLOSE_ID, IDialogConstants.CLOSE_LABEL, true );
     }
 
   }

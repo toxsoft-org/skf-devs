@@ -1,5 +1,6 @@
 package org.toxsoft.skf.devs.rtbrowser.gui.panels.rtexplorer;
 
+import org.toxsoft.core.tslib.gw.gwid.*;
 import org.toxsoft.core.tslib.gw.skid.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.rtDatas.*;
 import org.toxsoft.uskat.core.*;
@@ -16,6 +17,7 @@ public class RtDataExplorerRow
     extends RtDataBrowserRow {
 
   private Skid skid;
+  private Gwid gwid;
 
   private IDtoRtdataInfo rtDataInfo;
 
@@ -34,6 +36,7 @@ public class RtDataExplorerRow
     super( aCoreApi, new SkidList( aSkid ), aRtdataInfo );
     skid = aSkid;
     rtDataInfo = aRtdataInfo;
+    gwid = Gwid.createRtdata( aSkid, aRtdataInfo.id() );
 
     ISkObject obj = coreApi.objService().find( skid );
     objName = obj != null ? obj.nmName() + " (" + obj.description() + ")" : skid.strid();
@@ -44,6 +47,10 @@ public class RtDataExplorerRow
 
   Skid getSkid() {
     return skid;
+  }
+
+  Gwid getGwid() {
+    return gwid;
   }
 
   String getClassId() {
