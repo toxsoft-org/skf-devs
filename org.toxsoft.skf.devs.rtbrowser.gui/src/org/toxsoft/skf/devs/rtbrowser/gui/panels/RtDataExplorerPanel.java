@@ -17,6 +17,7 @@ import org.toxsoft.core.tsgui.panels.*;
 import org.toxsoft.core.tsgui.utils.layout.*;
 import org.toxsoft.core.tslib.gw.gwid.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.rtexplorer.*;
+import org.toxsoft.skf.devs.rtbrowser.gui.panels.rtexplorer.ultils.*;
 import org.toxsoft.skf.reports.gui.panels.*;
 import org.toxsoft.uskat.core.connection.*;
 import org.toxsoft.uskat.core.gui.conn.*;
@@ -140,7 +141,7 @@ public class RtDataExplorerPanel
       @Override
       protected Control createControl( Composite aParent ) {
         CLabel l = new CLabel( aParent, SWT.CENTER );
-        l.setText( "   Удалить все строки" );
+        l.setText( "Удалить все строки" );
         return l;
       }
     } );
@@ -160,9 +161,73 @@ public class RtDataExplorerPanel
     actUncheckAll.setToolTipText( "   Удалить все строки" );
     tbm.add( actUncheckAll );
 
+    // сохранить настройки
+    tbm.add( new ControlContribution( "saveSetting" ) { //$NON-NLS-1$
+
+      @Override
+      protected Control createControl( Composite aParent ) {
+        CLabel l = new CLabel( aParent, SWT.CENTER );
+        l.setText( "Сохранить настройки" );
+        return l;
+      }
+    } );
+
+    Action actSaveSettings = new Action( "saveSetting", IAction.AS_PUSH_BUTTON ) { //$NON-NLS-1$
+
+      @Override
+      public void run() {
+        RtDataExplorerPanel outerInstance = RtDataExplorerPanel.this;
+        RtDataExplorerUtils.saveActualSettings( outerInstance.conn.coreApi(), outerInstance );
+      }
+    };
+    imd = iconManager.loadStdDescriptor( ICONID_DOCUMENT_SAVE_AS, EIconSize.IS_24X24 );
+
+    actSaveSettings.setImageDescriptor( imd );
+    actSaveSettings.setToolTipText( "Сохранить настройки" );
+    tbm.add( actSaveSettings );
+
+    // загрузить настройки
+    tbm.add( new ControlContribution( "loadSetting" ) { //$NON-NLS-1$
+
+      @Override
+      protected Control createControl( Composite aParent ) {
+        CLabel l = new CLabel( aParent, SWT.CENTER );
+        l.setText( "Загрузить настройки" );
+        return l;
+      }
+    } );
+
+    Action actLoadSetting = new Action( "loadSettings", IAction.AS_PUSH_BUTTON ) { //$NON-NLS-1$
+
+      @Override
+      public void run() {
+        RtDataExplorerPanel outerInstance = RtDataExplorerPanel.this;
+        IRtDataExplorerSettings selSettings =
+            RtDataExplorerUtils.selectSettings( outerInstance.conn.coreApi(), outerInstance.tsContext() );
+        if( selSettings != null ) {
+          dataEditor.removeAllGwids();
+          dataEditor.addGwids( selSettings.listUserRtGwids() );
+          outerInstance.getShell().setLocation( selSettings.location().x, selSettings.location().y );
+          outerInstance.getShell().setSize( selSettings.size() );
+        }
+      }
+    };
+    imd = iconManager.loadStdDescriptor( ICONID_EDIT_SELECT_ALL, EIconSize.IS_24X24 );
+
+    actLoadSetting.setImageDescriptor( imd );
+    actLoadSetting.setToolTipText( "Загрузить настройки" );
+    tbm.add( actLoadSetting );
+    //
     tbm.update( true );
     tb.pack();
     tb.getParent().layout( true );
+  }
+
+  /**
+   * @return all gwids of panel
+   */
+  public GwidList allGwids() {
+    return dataEditor.allGwids();
   }
 
 }

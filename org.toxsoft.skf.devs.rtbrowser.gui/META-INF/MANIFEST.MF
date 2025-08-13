@@ -23,7 +23,8 @@ Require-Bundle: jakarta.inject.jakarta.inject-api,
  org.toxsoft.uskat.s5,
  org.toxsoft.skf.reports.gui,
  org.toxsoft.skf.alarms.lib,
- ru.toxsoft.nm.gui
+ ru.toxsoft.nm.gui,
+ ru.toxsoft.skt.sitrol.lib
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Automatic-Module-Name: org.toxsoft.skf.devs.rtbrowser.gui
 Bundle-ActivationPolicy: lazy

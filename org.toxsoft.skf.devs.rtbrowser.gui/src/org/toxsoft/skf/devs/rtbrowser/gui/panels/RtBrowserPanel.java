@@ -40,6 +40,8 @@ import org.toxsoft.uskat.core.connection.*;
 import org.toxsoft.uskat.core.gui.conn.*;
 
 import ru.toxsoft.nm.gui.events.*;
+import ru.toxsoft.nm.gui.km5.*;
+import ru.toxsoft.skt.sitrol.lib.gw.*;
 
 /**
  * Панель просмотра и редактирования значений полей:
@@ -394,6 +396,28 @@ public class RtBrowserPanel
         .setImageDescriptor( iconManager().loadStdDescriptor( ICONID_FILE_TYPE_SPREADSHEET, EIconSize.IS_24X24 ) );
     actBrowseNMEvents.setToolTipText( "Окно живых событий" );
     tbm.add( actBrowseNMEvents );
+
+    Action actEditExecRoutes = new Action( "исполняемые маршруты НМ", IAction.AS_PUSH_BUTTON ) { //$NON-NLS-1$
+
+      @Override
+      public void run() {
+        // выберем линию для отладки
+        ISitrolSubwayLine selLine =
+            (ISitrolSubwayLine)conn.coreApi().objService().listObjs( ISitrolSubwayLine.CLASS_ID, true ).first();
+        NmExecutingRouteDialog d = new NmExecutingRouteDialog( null, tsContext(), selLine );
+        d.open();
+        d.setMessage( "Выберите маршрут и отредактируйте его название" );
+        // формируем заголовок
+        String title = String.format( "%s, исполняемые маршруты", selLine.nmName() );
+        d.setTitle( title );
+
+      }
+
+    };
+    actEditExecRoutes
+        .setImageDescriptor( iconManager().loadStdDescriptor( ICONID_FILE_TYPE_SPREADSHEET, EIconSize.IS_24X24 ) );
+    actEditExecRoutes.setToolTipText( "Окно исполняемых маршрутов" );
+    tbm.add( actEditExecRoutes );
 
     tbm.update( true );
     tb.pack();

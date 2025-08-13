@@ -145,6 +145,13 @@ public class RtDataExplorer
     resume();
   }
 
+  /**
+   * @return all gwids of panel
+   */
+  public GwidList allGwids() {
+    return gwids;
+  }
+
   @Override
   protected void createModel() {
     rows.clear();
