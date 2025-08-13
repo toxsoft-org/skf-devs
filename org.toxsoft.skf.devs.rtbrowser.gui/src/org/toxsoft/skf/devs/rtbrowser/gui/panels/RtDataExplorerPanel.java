@@ -11,14 +11,18 @@ import org.eclipse.swt.custom.*;
 import org.eclipse.swt.graphics.*;
 import org.eclipse.swt.widgets.*;
 import org.toxsoft.core.tsgui.bricks.ctx.*;
+import org.toxsoft.core.tsgui.dialogs.*;
 import org.toxsoft.core.tsgui.dialogs.datarec.*;
 import org.toxsoft.core.tsgui.graphics.icons.*;
 import org.toxsoft.core.tsgui.panels.*;
 import org.toxsoft.core.tsgui.utils.layout.*;
 import org.toxsoft.core.tslib.gw.gwid.*;
+import org.toxsoft.core.tslib.gw.skid.*;
+import org.toxsoft.skf.devs.rtbrowser.gui.editors.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.rtexplorer.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.rtexplorer.ultils.*;
 import org.toxsoft.skf.reports.gui.panels.*;
+import org.toxsoft.uskat.core.api.objserv.*;
 import org.toxsoft.uskat.core.connection.*;
 import org.toxsoft.uskat.core.gui.conn.*;
 
@@ -107,20 +111,21 @@ public class RtDataExplorerPanel
       @Override
       protected Control createControl( Composite aParent ) {
         CLabel l = new CLabel( aParent, SWT.CENTER );
-        l.setText( "Добавить GWID" );
+        l.setText( "Добавить" );
         return l;
       }
     } );
 
-    Action actBrowseClass = new Action( "browseClass", IAction.AS_PUSH_BUTTON ) { //$NON-NLS-1$
+    Action actAddGwids = new Action( "addGwids", IAction.AS_PUSH_BUTTON ) { //$NON-NLS-1$
 
       @Override
       public void run() {
         IDialogPanelCreator<IGwidList, ITsGuiContext> creator = PanelGwidListSelector::new;
 
-        ITsDialogInfo dlgInfo = new TsDialogInfo( tsContext(), getShell(), "Выбор Gwid", "Выбор Gwid", 0 );// ,
-                                                                                                           // ITsDialogConstants.DF_NONMODAL
-                                                                                                           // );
+        TsDialogInfo dlgInfo = new TsDialogInfo( tsContext(), getShell(), "Выбор Gwid", "Выбор Gwid", 0 );
+        dlgInfo.setMinSizeShellRelative( 200, 300 );
+        dlgInfo.setMaxSizeShellRelative( 200, 300 );
+
         TsDialog<IGwidList, ITsGuiContext> d = new TsDialog<>( dlgInfo, null, tsContext(), creator );
 
         IGwidList selGwid = d.execData();
@@ -132,16 +137,16 @@ public class RtDataExplorerPanel
       }
 
     };
-    actBrowseClass.setImageDescriptor( iconManager().loadStdDescriptor( ICONID_EDIT_FIND, EIconSize.IS_24X24 ) );
-    actBrowseClass.setToolTipText( "Добавить GWID" );
-    tbm.add( actBrowseClass );
+    actAddGwids.setImageDescriptor( iconManager().loadStdDescriptor( ICONID_LIST_ADD, EIconSize.IS_24X24 ) );
+    actAddGwids.setToolTipText( "Добавить GWID" );
+    tbm.add( actAddGwids );
 
     tbm.add( new ControlContribution( "label2" ) { //$NON-NLS-1$
 
       @Override
       protected Control createControl( Composite aParent ) {
         CLabel l = new CLabel( aParent, SWT.CENTER );
-        l.setText( "Удалить все строки" );
+        l.setText( "Очистить" );
         return l;
       }
     } );
@@ -158,7 +163,7 @@ public class RtDataExplorerPanel
     ImageDescriptor imd = iconManager.loadStdDescriptor( ICONID_UNCHECK_ALL, EIconSize.IS_24X24 );
 
     actUncheckAll.setImageDescriptor( imd );
-    actUncheckAll.setToolTipText( "   Удалить все строки" );
+    actUncheckAll.setToolTipText( "Удалить все Gwid" );
     tbm.add( actUncheckAll );
 
     // сохранить настройки
@@ -167,7 +172,7 @@ public class RtDataExplorerPanel
       @Override
       protected Control createControl( Composite aParent ) {
         CLabel l = new CLabel( aParent, SWT.CENTER );
-        l.setText( "Сохранить настройки" );
+        l.setText( "Сохранить" );
         return l;
       }
     } );
@@ -183,7 +188,7 @@ public class RtDataExplorerPanel
     imd = iconManager.loadStdDescriptor( ICONID_DOCUMENT_SAVE_AS, EIconSize.IS_24X24 );
 
     actSaveSettings.setImageDescriptor( imd );
-    actSaveSettings.setToolTipText( "Сохранить настройки" );
+    actSaveSettings.setToolTipText( "Сохранить текущие настройки" );
     tbm.add( actSaveSettings );
 
     // загрузить настройки
@@ -192,7 +197,7 @@ public class RtDataExplorerPanel
       @Override
       protected Control createControl( Composite aParent ) {
         CLabel l = new CLabel( aParent, SWT.CENTER );
-        l.setText( "Загрузить настройки" );
+        l.setText( "Загрузить" );
         return l;
       }
     } );
@@ -203,12 +208,15 @@ public class RtDataExplorerPanel
       public void run() {
         IDialogPanelCreator<IRtDataExplorerSettings, ITsGuiContext> creator = RtDataExplorerSettingSelector::new;
 
-        ITsDialogInfo dlgInfo = new TsDialogInfo( tsContext(), getShell(), "Выбор настроек", "Выбор настроек", 0 );// ,
+        TsDialogInfo dlgInfo =
+            new TsDialogInfo( tsContext(), getShell(), "Сохраненные настройки", "Выберите нужную и нажмите Ok", 0 );
+
         TsDialog<IRtDataExplorerSettings, ITsGuiContext> d = new TsDialog<>( dlgInfo, null, tsContext(), creator );
 
         IRtDataExplorerSettings selSettings = d.execData();
 
         RtDataExplorerPanel outerInstance = RtDataExplorerPanel.this;
+        // в этой версии панель возникает снизу от окна RtDataExplorer
         // IRtDataExplorerSettings selSettings =
         // RtDataExplorerUtils.selectSettings( outerInstance.conn.coreApi(), outerInstance.tsContext() );
         if( selSettings != null ) {
@@ -219,11 +227,59 @@ public class RtDataExplorerPanel
         }
       }
     };
-    imd = iconManager.loadStdDescriptor( ICONID_EDIT_SELECT_ALL, EIconSize.IS_24X24 );
+    imd = iconManager.loadStdDescriptor( ICONID_LIST_ADD_ALL, EIconSize.IS_24X24 );
 
     actLoadSetting.setImageDescriptor( imd );
     actLoadSetting.setToolTipText( "Загрузить настройки" );
     tbm.add( actLoadSetting );
+    // удалить настройки
+    tbm.add( new ControlContribution( "removeSetting" ) { //$NON-NLS-1$
+
+      @Override
+      protected Control createControl( Composite aParent ) {
+        CLabel l = new CLabel( aParent, SWT.CENTER );
+        l.setText( "Удалить" );
+        return l;
+      }
+    } );
+
+    Action actRemoveSetting = new Action( "removeSettings", IAction.AS_PUSH_BUTTON ) { //$NON-NLS-1$
+
+      @Override
+      public void run() {
+        RtDataExplorerPanel outerInstance = RtDataExplorerPanel.this;
+        IDialogPanelCreator<ISkidList, ITsGuiContext> creator = PanelSkidListSelector::new;
+
+        TsDialogInfo dlgInfo =
+            new TsDialogInfo( tsContext(), getShell(), "Сохраненные настройки", "Выберите настройки для удаления!", 0 );
+        dlgInfo.setMinSizeShellRelative( 200, 200 );
+        dlgInfo.setMaxSizeShellRelative( 200, 200 );
+        // set initial data
+        ISkidList initVal =
+            outerInstance.conn.coreApi().objService().listSkids( IRtDataExplorerSettings.CLASS_ID, false );
+        TsDialog<ISkidList, ITsGuiContext> d = new TsDialog<>( dlgInfo, initVal, tsContext(), creator );
+
+        ISkidList selSettings = d.execData();
+
+        if( selSettings != null ) {
+          StringBuilder sb = new StringBuilder();
+          for( Skid skid : selSettings ) {
+            ISkObject obj = outerInstance.conn.coreApi().objService().find( skid );
+            sb.append( obj.nmName() + "\n" );
+          }
+          if( TsDialogUtils.askYesNoCancel( getShell(), "Вы хотите удалить настройки: %s",
+              sb.toString() ) == ETsDialogCode.YES ) {
+            outerInstance.conn.coreApi().objService().removeObjects( selSettings );
+          }
+        }
+      }
+    };
+    imd = iconManager.loadStdDescriptor( ICONID_LIST_REMOVE, EIconSize.IS_24X24 );
+
+    actRemoveSetting.setImageDescriptor( imd );
+    actRemoveSetting.setToolTipText( "Удалить выбранные настройки" );
+    tbm.add( actRemoveSetting );
+
     //
     tbm.update( true );
     tb.pack();

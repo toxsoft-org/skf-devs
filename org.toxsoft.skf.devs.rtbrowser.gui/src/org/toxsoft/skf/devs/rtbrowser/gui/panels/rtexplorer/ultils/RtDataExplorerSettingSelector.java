@@ -27,6 +27,12 @@ public class RtDataExplorerSettingSelector
 
   ValedComboSelector<IRtDataExplorerSettings> settingPackSelector;
 
+  /**
+   * Constructor.
+   *
+   * @param aParent - parent
+   * @param aOwnerDialog - owner dialog
+   */
   public RtDataExplorerSettingSelector( Composite aParent,
       TsDialog<IRtDataExplorerSettings, ITsGuiContext> aOwnerDialog ) {
     super( aParent, aOwnerDialog );
