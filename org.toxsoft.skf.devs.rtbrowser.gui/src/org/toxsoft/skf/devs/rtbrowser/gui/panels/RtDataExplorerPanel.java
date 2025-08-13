@@ -201,9 +201,16 @@ public class RtDataExplorerPanel
 
       @Override
       public void run() {
+        IDialogPanelCreator<IRtDataExplorerSettings, ITsGuiContext> creator = RtDataExplorerSettingSelector::new;
+
+        ITsDialogInfo dlgInfo = new TsDialogInfo( tsContext(), getShell(), "Выбор настроек", "Выбор настроек", 0 );// ,
+        TsDialog<IRtDataExplorerSettings, ITsGuiContext> d = new TsDialog<>( dlgInfo, null, tsContext(), creator );
+
+        IRtDataExplorerSettings selSettings = d.execData();
+
         RtDataExplorerPanel outerInstance = RtDataExplorerPanel.this;
-        IRtDataExplorerSettings selSettings =
-            RtDataExplorerUtils.selectSettings( outerInstance.conn.coreApi(), outerInstance.tsContext() );
+        // IRtDataExplorerSettings selSettings =
+        // RtDataExplorerUtils.selectSettings( outerInstance.conn.coreApi(), outerInstance.tsContext() );
         if( selSettings != null ) {
           dataEditor.removeAllGwids();
           dataEditor.addGwids( selSettings.listUserRtGwids() );

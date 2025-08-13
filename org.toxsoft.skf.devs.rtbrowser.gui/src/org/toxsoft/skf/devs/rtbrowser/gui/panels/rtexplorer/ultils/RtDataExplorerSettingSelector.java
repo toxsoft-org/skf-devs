@@ -27,7 +27,7 @@ public class RtDataExplorerSettingSelector
 
   ValedComboSelector<IRtDataExplorerSettings> settingPackSelector;
 
-  protected RtDataExplorerSettingSelector( Composite aParent,
+  public RtDataExplorerSettingSelector( Composite aParent,
       TsDialog<IRtDataExplorerSettings, ITsGuiContext> aOwnerDialog ) {
     super( aParent, aOwnerDialog );
     this.setLayout( new GridLayout( 2, false ) );
@@ -88,7 +88,7 @@ public class RtDataExplorerSettingSelector
     TsNullArgumentRtException.checkNull( aContext );
     IDialogPanelCreator<IRtDataExplorerSettings, ITsGuiContext> creator = RtDataExplorerSettingSelector::new;
     TsDialogInfo dlgInfo =
-        new TsDialogInfo( aContext, "Сохраненные настройки RtDataExplorer", "Выберите нужный пакет и нажмите Ok" );
+        new TsDialogInfo( aContext, "Сохраненные настройки RtDataExplorer", "Выберите нужный пакет и нажмите Ok", 0 );
     dlgInfo.setMinSizeShellRelative( 28, 26 );
     dlgInfo.setMaxSizeShellRelative( 28, 26 );
     TsDialog<IRtDataExplorerSettings, ITsGuiContext> d = new TsDialog<>( dlgInfo, aDfltPack, aContext, creator );
