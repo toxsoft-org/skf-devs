@@ -62,7 +62,7 @@ public class QuantRtBrowserGui
     // dima 13.08.25 TODO check if it is right place for that action
     IDtoClassInfo rtDataExplorerSettingsCinf = RtDataExplorerSettings.internalCreatRtDataExplorerSettingsDto();
     aCoreApi.sysdescr().defineClass( rtDataExplorerSettingsCinf );
-
+    aCoreApi.objService().registerObjectCreator( IRtDataExplorerSettings.CLASS_ID, RtDataExplorerSettings.CREATOR );
   }
 
 }

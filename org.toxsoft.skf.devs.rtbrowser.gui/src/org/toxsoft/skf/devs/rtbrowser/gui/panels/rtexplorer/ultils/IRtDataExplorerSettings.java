@@ -18,8 +18,6 @@ public interface IRtDataExplorerSettings
   String CLASS_ID = ISkHardConstants.SK_ID + ".RtDataExplorerSettings"; //$NON-NLS-1$
   // ------------------------------------------------------------------------------------
 
-  String localName();
-
   IGwidList listUserRtGwids();
 
   Point size();

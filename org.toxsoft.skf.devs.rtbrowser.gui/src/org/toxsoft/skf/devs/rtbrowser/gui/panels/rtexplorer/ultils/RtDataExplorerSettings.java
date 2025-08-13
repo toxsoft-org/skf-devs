@@ -10,7 +10,6 @@ import org.eclipse.swt.graphics.*;
 import org.toxsoft.core.tslib.av.opset.*;
 import org.toxsoft.core.tslib.gw.gwid.*;
 import org.toxsoft.core.tslib.gw.skid.*;
-import org.toxsoft.core.tslib.utils.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.*;
 import org.toxsoft.uskat.core.api.objserv.*;
 import org.toxsoft.uskat.core.api.sysdescr.dto.*;
@@ -25,6 +24,11 @@ import org.toxsoft.uskat.core.impl.dto.*;
 public class RtDataExplorerSettings
     extends SkObject
     implements IRtDataExplorerSettings {
+
+  /**
+   * Object creator
+   */
+  public static final ISkObjectCreator<RtDataExplorerSettings> CREATOR = RtDataExplorerSettings::new;
 
   /**
    * id для хранения списка RtData Gwids в Clob
@@ -92,50 +96,34 @@ public class RtDataExplorerSettings
       TSID_NAME, STR_N_RTDATAEXPLORER_Y, //
       TSID_DESCRIPTION, STR_D_RTDATAEXPLORER_Y );
 
-  private ISkObject shadowObj;
-
   RtDataExplorerSettings( Skid aSkid ) {
     super( aSkid );
   }
 
-  // ------------------------------------------------------------------------------------
-  // implementation
-  //
-
-  RtDataExplorerSettings( ISkObject aSettingsPack ) {
-    super( aSettingsPack.skid() );
-    shadowObj = aSettingsPack;
-  }
-
   protected Gwid clobIdRtGwids() {
     if( clobIdRtGwids == null ) {
-      clobIdRtGwids = Gwid.createClob( shadowObj.classId(), shadowObj.strid(), CLBID_RTDATAEXPLORER_PARAMS );
+      clobIdRtGwids = Gwid.createClob( classId(), strid(), CLBID_RTDATAEXPLORER_PARAMS );
     }
     return clobIdRtGwids;
   }
 
   @Override
-  public String localName() {
-    return shadowObj.attrs().getStr( AID_NAME, TsLibUtils.EMPTY_STRING );
-  }
-
-  @Override
   public IGwidList listUserRtGwids() {
-    String paramsStr = shadowObj.coreApi().clobService().readClob( clobIdRtGwids() );
+    String paramsStr = coreApi().clobService().readClob( clobIdRtGwids() );
     return GwidList.KEEPER.str2ent( paramsStr );
   }
 
   @Override
   public Point size() {
-    int width = shadowObj.attrs().getInt( ATRID_RTDATAEXPLORER_WIDTH );
-    int height = shadowObj.attrs().getInt( ATRID_RTDATAEXPLORER_HEIGHT );
+    int width = attrs().getInt( ATRID_RTDATAEXPLORER_WIDTH );
+    int height = attrs().getInt( ATRID_RTDATAEXPLORER_HEIGHT );
     return new Point( width, height );
   }
 
   @Override
   public Point location() {
-    int x = shadowObj.attrs().getInt( ATRID_RTDATAEXPLORER_X );
-    int y = shadowObj.attrs().getInt( ATRID_RTDATAEXPLORER_Y );
+    int x = attrs().getInt( ATRID_RTDATAEXPLORER_X );
+    int y = attrs().getInt( ATRID_RTDATAEXPLORER_Y );
     return new Point( x, y );
   }
 

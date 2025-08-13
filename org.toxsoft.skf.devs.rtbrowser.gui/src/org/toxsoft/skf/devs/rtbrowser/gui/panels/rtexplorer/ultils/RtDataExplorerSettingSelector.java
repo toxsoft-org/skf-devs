@@ -35,7 +35,7 @@ public class RtDataExplorerSettingSelector
     l.setText( "Що есть щас:" );
 
     IList<IRtDataExplorerSettings> values = new ElemArrayList<>();
-    ITsVisualsProvider<IRtDataExplorerSettings> visualsProvider = IRtDataExplorerSettings::localName;
+    ITsVisualsProvider<IRtDataExplorerSettings> visualsProvider = IRtDataExplorerSettings::nmName;
     settingPackSelector = new ValedComboSelector<>( tsContext(), values, visualsProvider );
     settingPackSelector.createControl( this )
         .setLayoutData( new GridData( GridData.FILL, GridData.FILL, true, false ) );
@@ -61,9 +61,7 @@ public class RtDataExplorerSettingSelector
     ISkObjectService objService = conn.coreApi().objService();
 
     for( ISkObject settingsPack : objService.listObjs( IRtDataExplorerSettings.CLASS_ID, false ) ) {
-      // create real object
-      IRtDataExplorerSettings realPack = new RtDataExplorerSettings( settingsPack );
-      packs.add( realPack );
+      packs.add( (IRtDataExplorerSettings)settingsPack );
     }
     settingPackSelector.setItems( packs );
   }
