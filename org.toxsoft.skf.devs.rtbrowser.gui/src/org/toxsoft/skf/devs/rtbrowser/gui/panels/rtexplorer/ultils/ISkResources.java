@@ -21,4 +21,19 @@ public interface ISkResources {
   String STR_N_RTDATAEXPLORER_Y      = "Положение по Y";
   String STR_D_RTDATAEXPLORER_Y      = "Положение окна панели по Y";
 
+  /**
+   * {@link RtDataExplorerSettings}
+   */
+  String STR_N_STORED_SETTINGS         = "Що есть щас:";
+  String STR_N_STORED_SETTINGS_CAPTION = "Сохраненные настройки RtDataExplorer";
+  String STR_N_STORED_SETTINGS_TITLE   = "Выберите нужный пакет и нажмите Ok";
+
+  /**
+   * {@link SettingsPackNameDialog}
+   */
+  String STR_DLG_TITLE        = "Название набора настроек";
+  String STR_DLG_MESSAGE      = "Введите название для сохранения текущих настроек";
+  String STR_N_SETTINGS_NAME  = "Название";
+  String STR_N_SETTINGS_DESCR = "Описание";
+
 }

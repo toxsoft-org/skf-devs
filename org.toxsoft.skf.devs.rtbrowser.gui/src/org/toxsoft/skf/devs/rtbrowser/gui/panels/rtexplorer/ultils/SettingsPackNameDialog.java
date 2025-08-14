@@ -1,31 +1,40 @@
 package org.toxsoft.skf.devs.rtbrowser.gui.panels.rtexplorer.ultils;
 
+import static org.toxsoft.skf.devs.rtbrowser.gui.panels.rtexplorer.ultils.ISkResources.*;
+
 import org.eclipse.jface.dialogs.*;
 import org.eclipse.swt.*;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
 
 /**
+ * Dialog to enter settings pack name
+ *
  * @author dima
  */
 public class SettingsPackNameDialog
     extends TitleAreaDialog {
 
-  private Text txtFirstName;
-  private Text lastNameText;
+  private Text txtSettingPackName;
+  private Text txtSettingPackDescr;
 
-  private String firstName;
-  private String lastName;
+  private String settingPackName;
+  private String settingPackDescr;
 
-  public SettingsPackNameDialog( Shell parentShell ) {
-    super( parentShell );
+  /**
+   * Constructor.
+   *
+   * @param aParent - parent shell
+   */
+  public SettingsPackNameDialog( Shell aParent ) {
+    super( aParent );
   }
 
   @Override
   public void create() {
     super.create();
-    setTitle( "This is my first custom dialog" );
-    setMessage( "This is a TitleAreaDialog", IMessageProvider.INFORMATION );
+    setTitle( STR_DLG_TITLE );
+    setMessage( STR_DLG_MESSAGE, IMessageProvider.INFORMATION );
   }
 
   @Override
@@ -36,33 +45,34 @@ public class SettingsPackNameDialog
     GridLayout layout = new GridLayout( 2, false );
     container.setLayout( layout );
 
-    createFirstName( container );
-    createLastName( container );
+    createSettingsPackName( container );
+    // enough just name
+    // createSettingsPackDescr( container );
 
     return area;
   }
 
-  private void createFirstName( Composite container ) {
+  private void createSettingsPackName( Composite container ) {
     Label lbtFirstName = new Label( container, SWT.NONE );
-    lbtFirstName.setText( "Название пакета" );
+    lbtFirstName.setText( STR_N_SETTINGS_NAME );
 
     GridData dataFirstName = new GridData();
     dataFirstName.grabExcessHorizontalSpace = true;
     dataFirstName.horizontalAlignment = GridData.FILL;
 
-    txtFirstName = new Text( container, SWT.BORDER );
-    txtFirstName.setLayoutData( dataFirstName );
+    txtSettingPackName = new Text( container, SWT.BORDER );
+    txtSettingPackName.setLayoutData( dataFirstName );
   }
 
-  private void createLastName( Composite container ) {
+  private void createSettingsPackDescr( Composite container ) {
     Label lbtLastName = new Label( container, SWT.NONE );
-    lbtLastName.setText( "Описание" );
+    lbtLastName.setText( STR_N_SETTINGS_DESCR );
 
     GridData dataLastName = new GridData();
     dataLastName.grabExcessHorizontalSpace = true;
     dataLastName.horizontalAlignment = GridData.FILL;
-    lastNameText = new Text( container, SWT.BORDER );
-    lastNameText.setLayoutData( dataLastName );
+    txtSettingPackDescr = new Text( container, SWT.BORDER );
+    txtSettingPackDescr.setLayoutData( dataLastName );
   }
 
   @Override
@@ -73,8 +83,8 @@ public class SettingsPackNameDialog
   // save content of the Text fields because they get disposed
   // as soon as the Dialog closes
   private void saveInput() {
-    firstName = txtFirstName.getText();
-    lastName = lastNameText.getText();
+    settingPackName = txtSettingPackName.getText();
+    settingPackDescr = txtSettingPackDescr.getText();
 
   }
 
@@ -84,11 +94,17 @@ public class SettingsPackNameDialog
     super.okPressed();
   }
 
-  public String getFirstName() {
-    return firstName;
+  /**
+   * @return human readable name
+   */
+  public String getName() {
+    return settingPackName;
   }
 
-  public String getLastName() {
-    return lastName;
+  /**
+   * @return human readable description
+   */
+  public String getDescr() {
+    return settingPackDescr;
   }
 }

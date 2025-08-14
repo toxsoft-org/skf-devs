@@ -11,7 +11,6 @@ import org.toxsoft.core.tslib.av.impl.*;
 import org.toxsoft.core.tslib.bricks.strid.idgen.*;
 import org.toxsoft.core.tslib.gw.gwid.*;
 import org.toxsoft.core.tslib.gw.skid.*;
-import org.toxsoft.core.tslib.utils.errors.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.*;
 import org.toxsoft.uskat.core.*;
 import org.toxsoft.uskat.core.api.objserv.*;
@@ -49,9 +48,7 @@ public class RtDataExplorerUtils {
     // now open the dialog
     dialog.create();
     if( dialog.open() == Window.OK ) {
-      System.out.println( dialog.getFirstName() );
-      System.out.println( dialog.getLastName() );
-      String settingsName = dialog.getFirstName();
+      String settingsName = dialog.getName();
       IDtoFullObject dtoSetting = makeSettingsPackDto( aCoreApi, settingsName, gwidList, location, size );
       DtoFullObject.defineFullObject( aCoreApi, dtoSetting );
     }
@@ -105,11 +102,6 @@ public class RtDataExplorerUtils {
     dtoSettingsPack.clobs().put( RtDataExplorerSettings.CLBID_RTDATAEXPLORER_PARAMS, rtGwidsStr );
 
     return dtoSettingsPack;
-  }
-
-  private static RtDataExplorerSettings findSettingsPack( ISkCoreApi aCoreApi, String aPackId ) {
-    TsNullArgumentRtException.checkNull( aPackId );
-    return aCoreApi.objService().find( new Skid( IRtDataExplorerSettings.CLASS_ID, aPackId ) );
   }
 
   /**
