@@ -33,6 +33,22 @@ public interface ISkResources {
   String DLG_T_SELECT_CLASS = Messages.getString( "DLG_T_SELECT_CLASS" ); //$NON-NLS-1$
 
   /**
+   * {@link RtDataExplorerPanel}
+   */
+  String STR_SEL_RTDATA_CAPTION      = "Выбор rtData";
+  String STR_SEL_RTDATA_TITLE        = "Выберите класс, объекты и данные";
+  String STR_SEL_RTDATA_TOOLTIP      = "Добавить GWIDы";
+  String STR_REMOVE_RTDATA_TOOLTIP   = "Удалить выбранный Gwid";
+  String STR_SAVE_SETTING_TOOLTIP    = "Сохранить текущие настройки";
+  String STR_SAVED_SETTINGS_CAPTION  = "Сохраненные настройки";
+  String STR_SAVED_SETTINGS_TITLE    = "Выберите нужную и нажмите Ok";
+  String STR_LOAD_SETTINGS_TOOLTIP   = "Загрузить настройки";
+  String STR_REMOVE_SETTINGS_CAPTION = "Сохраненные настройки";
+  String STR_REMOVE_SETTINGS_TITLE   = "Выберите настройки которые будут удалены...";
+  String FMT_STR_REMOVE_SETTING      = "Удаляются настройки: %s\nВы уверены?";
+  String STR_REMOVE_SETTINGS_TOOLTIP = "Удалить ранее сохраненные настройки";
+
+  /**
    * {@link AttrsBrowser}
    */
   String STR_ATTR_NAME = Messages.getString( "STR_ATTR_NAME" ); //$NON-NLS-1$

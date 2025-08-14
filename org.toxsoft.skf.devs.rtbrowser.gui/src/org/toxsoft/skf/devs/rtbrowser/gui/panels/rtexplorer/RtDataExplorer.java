@@ -135,6 +135,18 @@ public class RtDataExplorer
     resume();
   }
 
+  public void removeSelGwid() {
+    IStructuredSelection sel = (IStructuredSelection)viewer.getSelection();
+    if( !sel.isEmpty() ) {
+      RtDataExplorerRow selRow = RtDataExplorerRow.class.cast( sel.getFirstElement() );
+      pause();
+      disposeResources();
+      gwids.remove( selRow.getGwid() );
+      createModel();
+      recreateView();
+      resume();
+    }
+  }
   public void removeAllGwids() {
 
     pause();
