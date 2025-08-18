@@ -84,7 +84,7 @@ public class SettingsPackNameDialog
   // as soon as the Dialog closes
   private void saveInput() {
     settingPackName = txtSettingPackName.getText();
-    settingPackDescr = txtSettingPackDescr.getText();
+    // settingPackDescr = txtSettingPackDescr.getText();
 
   }
 
