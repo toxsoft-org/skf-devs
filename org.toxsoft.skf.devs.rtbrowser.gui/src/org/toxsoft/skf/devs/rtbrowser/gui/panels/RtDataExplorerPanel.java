@@ -124,8 +124,8 @@ public class RtDataExplorerPanel
 
         TsDialogInfo dlgInfo =
             new TsDialogInfo( tsContext(), getShell(), STR_SEL_RTDATA_CAPTION, STR_SEL_RTDATA_TITLE, 0 );
-        dlgInfo.setMinSizeShellRelative( 200, 300 );
-        dlgInfo.setMaxSizeShellRelative( 200, 300 );
+        dlgInfo.setMinSizeShellRelative( 200, 400 );
+        dlgInfo.setMaxSizeShellRelative( 200, 400 );
 
         TsDialog<IGwidList, ITsGuiContext> d = new TsDialog<>( dlgInfo, null, tsContext(), creator );
 

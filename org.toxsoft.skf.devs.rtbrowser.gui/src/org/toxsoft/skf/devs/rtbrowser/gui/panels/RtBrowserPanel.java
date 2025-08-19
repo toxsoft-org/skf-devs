@@ -529,7 +529,7 @@ public class RtBrowserPanel
 
     @Override
     protected Point getInitialSize() {
-      return new Point( 750, 250 );
+      return new Point( 750, 450 );
     }
 
     @Override

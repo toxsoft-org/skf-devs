@@ -16,10 +16,10 @@ public class SettingsPackNameDialog
     extends TitleAreaDialog {
 
   private Text txtSettingPackName;
-  private Text txtSettingPackDescr;
+  // private Text txtSettingPackDescr;
 
   private String settingPackName;
-  private String settingPackDescr;
+  // private String settingPackDescr;
 
   /**
    * Constructor.
@@ -64,16 +64,16 @@ public class SettingsPackNameDialog
     txtSettingPackName.setLayoutData( dataFirstName );
   }
 
-  private void createSettingsPackDescr( Composite container ) {
-    Label lbtLastName = new Label( container, SWT.NONE );
-    lbtLastName.setText( STR_N_SETTINGS_DESCR );
-
-    GridData dataLastName = new GridData();
-    dataLastName.grabExcessHorizontalSpace = true;
-    dataLastName.horizontalAlignment = GridData.FILL;
-    txtSettingPackDescr = new Text( container, SWT.BORDER );
-    txtSettingPackDescr.setLayoutData( dataLastName );
-  }
+  // private void createSettingsPackDescr( Composite container ) {
+  // Label lbtLastName = new Label( container, SWT.NONE );
+  // lbtLastName.setText( STR_N_SETTINGS_DESCR );
+  //
+  // GridData dataLastName = new GridData();
+  // dataLastName.grabExcessHorizontalSpace = true;
+  // dataLastName.horizontalAlignment = GridData.FILL;
+  // txtSettingPackDescr = new Text( container, SWT.BORDER );
+  // txtSettingPackDescr.setLayoutData( dataLastName );
+  // }
 
   @Override
   protected boolean isResizable() {
@@ -104,7 +104,7 @@ public class SettingsPackNameDialog
   /**
    * @return human readable description
    */
-  public String getDescr() {
-    return settingPackDescr;
-  }
+  // public String getDescr() {
+  // return settingPackDescr;
+  // }
 }
