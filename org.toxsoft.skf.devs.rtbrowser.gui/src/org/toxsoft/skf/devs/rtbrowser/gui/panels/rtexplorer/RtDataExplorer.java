@@ -2,7 +2,10 @@ package org.toxsoft.skf.devs.rtbrowser.gui.panels.rtexplorer;
 
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.*;
+import org.eclipse.swt.widgets.*;
 import org.toxsoft.core.tsgui.bricks.ctx.*;
+import org.toxsoft.core.tsgui.panels.*;
+import org.toxsoft.core.tsgui.utils.layout.*;
 import org.toxsoft.core.tslib.bricks.strid.coll.*;
 import org.toxsoft.core.tslib.gw.gwid.*;
 import org.toxsoft.core.tslib.gw.skid.*;
@@ -147,6 +150,7 @@ public class RtDataExplorer
       resume();
     }
   }
+
   public void removeAllGwids() {
 
     pause();
@@ -168,6 +172,19 @@ public class RtDataExplorer
   protected void createModel() {
     rows.clear();
     createRows( null );
+  }
+
+  /**
+   * Физически создаем и вставляем визуальный компонент
+   *
+   * @param aParent родитель в который будет встраиваться таблица
+   */
+  @Override
+  protected Control doCreateControl( Composite aParent ) {
+    backPanel = new TsPanel( aParent, tsContext() );
+    backPanel.setLayout( new BorderLayout() );
+    createTable();
+    return backPanel;
   }
 
 }

@@ -380,7 +380,7 @@ abstract public class BaseBrowser
     return backPanel;
   }
 
-  private void createTable() {
+  protected void createTable() {
     createTableViewer();
     createTableColumns();
     contentNdInput( false );
