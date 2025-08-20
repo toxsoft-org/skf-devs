@@ -36,4 +36,9 @@ public interface ISkResources {
   String STR_N_SETTINGS_NAME  = "Название";
   String STR_N_SETTINGS_DESCR = "Описание";
 
+  /**
+   * {@link RtDataExplorerSettingsM5Model}
+   */
+  String STR_D_SETTINGS_NAME = "Название пакета настроек";
+
 }

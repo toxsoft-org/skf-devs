@@ -2,24 +2,15 @@ package org.toxsoft.skf.devs.rtbrowser.gui.panels.rtexplorer.ultils;
 
 import static org.toxsoft.skf.devs.rtbrowser.gui.panels.rtexplorer.ultils.ISkResources.*;
 
-import org.eclipse.swt.*;
-import org.eclipse.swt.custom.*;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
 import org.toxsoft.core.tsgui.bricks.ctx.*;
 import org.toxsoft.core.tsgui.dialogs.datarec.*;
-import org.toxsoft.core.tsgui.utils.*;
-import org.toxsoft.core.tsgui.valed.controls.basic.*;
-import org.toxsoft.core.tslib.coll.*;
-import org.toxsoft.core.tslib.coll.impl.*;
 import org.toxsoft.core.tslib.utils.errors.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.*;
-import org.toxsoft.uskat.core.api.objserv.*;
-import org.toxsoft.uskat.core.connection.*;
-import org.toxsoft.uskat.core.gui.conn.*;
 
 /**
- * Панель для настроек {@link RtDataExplorerPanel} .
+ * Панель для выбора пакета настроек {@link RtDataExplorerPanel} .
  * <p>
  *
  * @author dima
@@ -27,7 +18,8 @@ import org.toxsoft.uskat.core.gui.conn.*;
 public class RtDataExplorerSettingSelector
     extends AbstractTsDialogPanel<IRtDataExplorerSettings, ITsGuiContext> {
 
-  ValedComboSelector<IRtDataExplorerSettings> settingPackSelector;
+  // ValedComboSelector<IRtDataExplorerSettings> settingPackSelector;
+  private RtDataExplorerSettingsViewerPanel settingsPanel;
 
   /**
    * Constructor.
@@ -38,22 +30,28 @@ public class RtDataExplorerSettingSelector
   public RtDataExplorerSettingSelector( Composite aParent,
       TsDialog<IRtDataExplorerSettings, ITsGuiContext> aOwnerDialog ) {
     super( aParent, aOwnerDialog );
-    this.setLayout( new GridLayout( 2, false ) );
-    CLabel l = new CLabel( this, SWT.LEFT );
-    l.setText( STR_N_STORED_SETTINGS );
+    FillLayout fillLayout = new FillLayout();
+    fillLayout.marginHeight = 5;
+    fillLayout.marginWidth = 5;
+    this.setLayout( fillLayout );
+    // version use combo
+    // CLabel l = new CLabel( this, SWT.LEFT );
+    // l.setText( STR_N_STORED_SETTINGS );
+    // IList<IRtDataExplorerSettings> values = new ElemArrayList<>();
+    // ITsVisualsProvider<IRtDataExplorerSettings> visualsProvider = IRtDataExplorerSettings::nmName;
+    // settingPackSelector = new ValedComboSelector<>( tsContext(), values, visualsProvider );
+    // settingPackSelector.createControl( this )
+    // .setLayoutData( new GridData( GridData.FILL, GridData.FILL, true, false ) );
+    // // оставим пока для примера, может пригодится еще
+    // settingPackSelector.eventer().addListener( ( aSource, aEditFinished ) -> {
+    // IRtDataExplorerSettings selPack = settingPackSelector.selectedItem();
+    // if( selPack != null ) {
+    // // TODO
+    // }
+    // } );
+    // version use list
+    settingsPanel = new RtDataExplorerSettingsViewerPanel( this, tsContext() );
 
-    IList<IRtDataExplorerSettings> values = new ElemArrayList<>();
-    ITsVisualsProvider<IRtDataExplorerSettings> visualsProvider = IRtDataExplorerSettings::nmName;
-    settingPackSelector = new ValedComboSelector<>( tsContext(), values, visualsProvider );
-    settingPackSelector.createControl( this )
-        .setLayoutData( new GridData( GridData.FILL, GridData.FILL, true, false ) );
-    // оставим пока для примера, может пригодится еще
-    settingPackSelector.eventer().addListener( ( aSource, aEditFinished ) -> {
-      IRtDataExplorerSettings selPack = settingPackSelector.selectedItem();
-      if( selPack != null ) {
-        // TODO
-      }
-    } );
   }
 
   // ------------------------------------------------------------------------------------
@@ -62,26 +60,13 @@ public class RtDataExplorerSettingSelector
 
   @Override
   protected void doSetDataRecord( IRtDataExplorerSettings aData ) {
-    IListEdit<IRtDataExplorerSettings> packs = new ElemArrayList<>();
-
-    ISkConnectionSupplier connSup = tsContext().get( ISkConnectionSupplier.class );
-    ISkConnection conn = connSup.defConn();
-    ISkObjectService objService = conn.coreApi().objService();
-
-    for( ISkObject settingsPack : objService.listObjs( IRtDataExplorerSettings.CLASS_ID, false ) ) {
-      packs.add( (IRtDataExplorerSettings)settingsPack );
-    }
-    settingPackSelector.setItems( packs );
+    // nop
   }
 
   @Override
   protected IRtDataExplorerSettings doGetDataRecord() {
-    return settingPackSelector.getValue();
+    return settingsPanel.getSelected();
   }
-
-  // ------------------------------------------------------------------------------------
-  //
-  //
 
   /**
    * Выбор линии пакета настроек из выпадающего списка.

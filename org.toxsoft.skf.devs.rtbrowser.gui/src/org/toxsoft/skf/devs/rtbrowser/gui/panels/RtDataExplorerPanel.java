@@ -17,8 +17,6 @@ import org.toxsoft.core.tsgui.graphics.icons.*;
 import org.toxsoft.core.tsgui.panels.*;
 import org.toxsoft.core.tsgui.utils.layout.*;
 import org.toxsoft.core.tslib.gw.gwid.*;
-import org.toxsoft.core.tslib.gw.skid.*;
-import org.toxsoft.skf.devs.rtbrowser.gui.editors.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.rtexplorer.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.rtexplorer.ultils.*;
 import org.toxsoft.skf.reports.gui.panels.*;
@@ -210,14 +208,7 @@ public class RtDataExplorerPanel
 
       @Override
       public void run() {
-        IDialogPanelCreator<IRtDataExplorerSettings, ITsGuiContext> creator = RtDataExplorerSettingSelector::new;
-
-        TsDialogInfo dlgInfo =
-            new TsDialogInfo( tsContext(), getShell(), STR_SAVED_SETTINGS_CAPTION, STR_SAVED_SETTINGS_TITLE, 0 );
-
-        TsDialog<IRtDataExplorerSettings, ITsGuiContext> d = new TsDialog<>( dlgInfo, null, tsContext(), creator );
-
-        IRtDataExplorerSettings selSettings = d.execData();
+        IRtDataExplorerSettings selSettings = selectSettingsPack();
 
         RtDataExplorerPanel outerInstance = RtDataExplorerPanel.this;
         // в этой версии панель возникает снизу от окна RtDataExplorer
@@ -230,6 +221,7 @@ public class RtDataExplorerPanel
           outerInstance.getShell().setSize( selSettings.size() );
         }
       }
+
     };
     imd = iconManager.loadStdDescriptor( ICONID_DOCUMENT_EXPORT, EIconSize.IS_24X24 );
 
@@ -252,28 +244,15 @@ public class RtDataExplorerPanel
 
       @Override
       public void run() {
+
         RtDataExplorerPanel outerInstance = RtDataExplorerPanel.this;
-        IDialogPanelCreator<ISkidList, ITsGuiContext> creator = PanelSkidListSelector::new;
-
-        TsDialogInfo dlgInfo =
-            new TsDialogInfo( tsContext(), getShell(), STR_REMOVE_SETTINGS_CAPTION, STR_REMOVE_SETTINGS_TITLE, 0 );
-        dlgInfo.setMinSizeShellRelative( 200, 200 );
-        dlgInfo.setMaxSizeShellRelative( 200, 200 );
-        // set initial data
-        ISkidList initVal =
-            outerInstance.conn.coreApi().objService().listSkids( IRtDataExplorerSettings.CLASS_ID, false );
-        TsDialog<ISkidList, ITsGuiContext> d = new TsDialog<>( dlgInfo, initVal, tsContext(), creator );
-
-        ISkidList selSettings = d.execData();
-
-        if( selSettings != null ) {
+        IRtDataExplorerSettings selItem = selectSettingsPack();
+        if( selItem != null ) {
           StringBuilder sb = new StringBuilder();
-          for( Skid skid : selSettings ) {
-            ISkObject obj = outerInstance.conn.coreApi().objService().find( skid );
-            sb.append( obj.nmName() + "\n" ); //$NON-NLS-1$
-          }
+          ISkObject obj = outerInstance.conn.coreApi().objService().find( selItem.skid() );
+          sb.append( obj.nmName() + "\n" ); //$NON-NLS-1$
           if( TsDialogUtils.askYesNoCancel( getShell(), FMT_STR_REMOVE_SETTING, sb.toString() ) == ETsDialogCode.YES ) {
-            outerInstance.conn.coreApi().objService().removeObjects( selSettings );
+            outerInstance.conn.coreApi().objService().removeObject( selItem.skid() );
           }
         }
       }
@@ -297,4 +276,20 @@ public class RtDataExplorerPanel
     return dataEditor.allGwids();
   }
 
+  /**
+   * Get user choice
+   *
+   * @return {@link IRtDataExplorerSettings} selected pack
+   */
+  private IRtDataExplorerSettings selectSettingsPack() {
+    IDialogPanelCreator<IRtDataExplorerSettings, ITsGuiContext> creator = RtDataExplorerSettingSelector::new;
+
+    TsDialogInfo dlgInfo =
+        new TsDialogInfo( tsContext(), getShell(), STR_SAVED_SETTINGS_CAPTION, STR_SAVED_SETTINGS_TITLE, 0 );
+
+    TsDialog<IRtDataExplorerSettings, ITsGuiContext> d = new TsDialog<>( dlgInfo, null, tsContext(), creator );
+
+    IRtDataExplorerSettings selSettings = d.execData();
+    return selSettings;
+  }
 }
