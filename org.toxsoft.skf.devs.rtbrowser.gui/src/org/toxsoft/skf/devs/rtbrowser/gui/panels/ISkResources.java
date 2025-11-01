@@ -5,6 +5,7 @@ import org.toxsoft.skf.devs.rtbrowser.gui.panels.base.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.cmds.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.events.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.links.*;
+import org.toxsoft.skf.devs.rtbrowser.gui.panels.rivets.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.rtDatas.*;
 
 /**
@@ -22,6 +23,7 @@ public interface ISkResources {
   String STR_CMDS           = Messages.getString( "STR_CMDS" );           //$NON-NLS-1$
   String STR_EVENTS         = Messages.getString( "STR_EVENTS" );         //$NON-NLS-1$
   String STR_LINKS          = Messages.getString( "STR_LINKS" );          //$NON-NLS-1$
+  String STR_RIVETS         = "rivets";
   String STR_FILTER         = Messages.getString( "STR_FILTER" );         //$NON-NLS-1$
   String STR_CHECK_ALL      = Messages.getString( "STR_CHECK_ALL" );      //$NON-NLS-1$
   String STR_UNCHECK_ALL    = Messages.getString( "STR_UNCHECK_ALL" );    //$NON-NLS-1$
@@ -89,4 +91,9 @@ public interface ISkResources {
   String STR_LINK_NAME            = Messages.getString( "STR_LINK_NAME" );            //$NON-NLS-1$
   String STR_OPEN_SUBEDITOR       = Messages.getString( "STR_OPEN_SUBEDITOR" );       //$NON-NLS-1$
   String STR_ERR_TOO_MANY_CLASSES = Messages.getString( "STR_ERR_TOO_MANY_CLASSES" ); //$NON-NLS-1$
+
+  /**
+   * {@link RivetsBrowser}
+   */
+  String STR_RIVET_NAME = "Rivet name"; //$NON-NLS-1$
 }

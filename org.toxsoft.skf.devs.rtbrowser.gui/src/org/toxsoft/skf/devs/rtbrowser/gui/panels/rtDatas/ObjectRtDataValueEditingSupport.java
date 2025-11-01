@@ -8,7 +8,6 @@ import org.toxsoft.core.tsgui.valed.controls.enums.*;
 import org.toxsoft.core.tslib.av.*;
 import org.toxsoft.core.tslib.av.metainfo.*;
 import org.toxsoft.core.tslib.bricks.keeper.*;
-import org.toxsoft.core.tslib.coll.*;
 import org.toxsoft.core.tslib.gw.gwid.*;
 import org.toxsoft.core.tslib.gw.skid.*;
 import org.toxsoft.core.tslib.utils.valobj.*;
@@ -113,12 +112,10 @@ public class ObjectRtDataValueEditingSupport
     RtDataBrowserRow browserRow = (RtDataBrowserRow)aElement;
     IAtomicValue avValue = (IAtomicValue)aValue;
     Gwid cellGwid = Gwid.createRtdata( skid.classId(), skid.strid(), browserRow.dataInfo().id() );
-    IMap<Gwid, ISkWriteCurrDataChannel> wCurrDataSet =
-        coreApi.rtdService().createWriteCurrDataChannels( new GwidList( cellGwid ) );
-    wCurrDataSet.getByKey( cellGwid ).setValue( avValue );
+    ISkWriteCurrDataChannel writeChannel = coreApi.rtdService().createWriteCurrDataChannel( cellGwid );
+    writeChannel.setValue( avValue );
     // закрываем каналы
-    for( ISkWriteCurrDataChannel channel : wCurrDataSet.values() ) {
-      channel.close();
-    }
+    // не закрываем канал, ломает работу системы
+    // writeChannel.close();
   }
 }

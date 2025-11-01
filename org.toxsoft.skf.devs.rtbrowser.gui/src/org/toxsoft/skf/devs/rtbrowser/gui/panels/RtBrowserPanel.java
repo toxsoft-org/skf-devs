@@ -31,6 +31,7 @@ import org.toxsoft.skf.devs.rtbrowser.gui.panels.attrs.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.cmds.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.events.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.links.*;
+import org.toxsoft.skf.devs.rtbrowser.gui.panels.rivets.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.panels.rtDatas.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.widgets.*;
 import org.toxsoft.uskat.core.api.objserv.*;
@@ -64,11 +65,13 @@ public class RtBrowserPanel
   private CommandsBrowser cmdEditor;
   private EventsBrowser   evtEditor;
   private LinksBrowser    linkEditor;
+  private RivetsBrowser   rivetEditor;
   private Control         rtDataBrowserControl = null;
   private Control         attrBrowserControl   = null;
   private Control         cmdBrowserControl    = null;
   private Control         eventBrowserControl  = null;
   private Control         linkBrowserControl   = null;
+  private Control         rivetBrowserControl  = null;
 
   private Composite  tbHolder;
   private CTabFolder tabFolder;
@@ -222,8 +225,25 @@ public class RtBrowserPanel
           ITsIconManager iconManager = tsContext().get( ITsIconManager.class );
           Image img = iconManager.loadStdIcon( ICONID_OBJ_LINK_EDIT, EIconSize.IS_24X24 );
           tabItem.setImage( img );
-
         }
+        // клепки
+        rivetEditor.setColumnObjectSkids( skidList );
+        IStringListEdit rvtIds = new StringArrayList();
+        for( IDtoRivetInfo rivetInfo : classInfo.rivets().list() ) {
+          rvtIds.add( rivetInfo.id() );
+        }
+        rivetEditor.setRowPropIds( rvtIds );
+
+        if( rivetBrowserControl == null ) {
+          rivetBrowserControl = rivetEditor.createControl( tabFolder );
+          CTabItem tabItem = new CTabItem( tabFolder, SWT.NONE );
+          tabItem.setText( STR_RIVETS );
+          tabItem.setControl( rivetBrowserControl );
+          ITsIconManager iconManager = tsContext().get( ITsIconManager.class );
+          Image img = iconManager.loadStdIcon( ICONID_OBJ_RIVET_EDIT, EIconSize.IS_24X24 );
+          tabItem.setImage( img );
+        }
+
         if( tabFolder.getSelectionIndex() < 0 ) {
           // если ни одна закладка не выбрана, то делаем текущей закладку с RtData
           tabFolder.setSelection( 0 );
@@ -236,6 +256,7 @@ public class RtBrowserPanel
     cmdEditor = new CommandsBrowser( conn.coreApi(), tsContext() );
     evtEditor = new EventsBrowser( conn.coreApi(), tsContext() );
     linkEditor = new LinksBrowser( conn.coreApi(), tsContext(), this );
+    rivetEditor = new RivetsBrowser( conn.coreApi(), tsContext(), this );
 
     CTabItem gwidTabItem = new CTabItem( mainTabFolder, SWT.NONE );
     gwidTabItem.setText( "rt explorer" );
@@ -320,6 +341,7 @@ public class RtBrowserPanel
         cmdEditor.setColumnObjectSkids( skidList );
         evtEditor.setColumnObjectSkids( skidList );
         linkEditor.setColumnObjectSkids( skidList );
+        rivetEditor.setColumnObjectSkids( skidList );
       }
     };
     ImageDescriptor imd = iconManager.loadStdDescriptor( ICONID_UNCHECK_ALL, EIconSize.IS_24X24 );
@@ -448,6 +470,11 @@ public class RtBrowserPanel
       linkBrowserControl = null;
       dirty = true;
     }
+    if( rivetBrowserControl != null ) {
+      rivetBrowserControl.dispose();
+      rivetBrowserControl = null;
+      dirty = true;
+    }
     tabFolder.dispose();
     tabFolder = new CTabFolder( bkPanel, SWT.BORDER );
     tabFolder.setLayout( new BorderLayout() );
@@ -458,6 +485,7 @@ public class RtBrowserPanel
     cmdEditor = new CommandsBrowser( conn.coreApi(), tsContext() );
     evtEditor = new EventsBrowser( conn.coreApi(), tsContext() );
     linkEditor = new LinksBrowser( conn.coreApi(), tsContext(), this );
+    rivetEditor = new RivetsBrowser( conn.coreApi(), tsContext(), this );
     if( dirty ) {
       bkPanel.layout( true );
     }

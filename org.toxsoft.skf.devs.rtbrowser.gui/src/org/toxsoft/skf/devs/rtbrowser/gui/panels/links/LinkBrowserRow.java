@@ -20,7 +20,7 @@ import org.toxsoft.uskat.core.api.sysdescr.dto.*;
  *
  * @author dima
  */
-class LinkBrowserRow
+public class LinkBrowserRow
     extends BaseBrowserRow {
 
   private final IDtoLinkInfo linkInfo;
@@ -51,6 +51,10 @@ class LinkBrowserRow
     return coreApi.linkService().getLinkFwd( linkGwid );
   }
 
+  /**
+   * @param aColl collection of Skid
+   * @return string to display collection
+   */
   public static String skidList2String( ITsCollection<?> aColl ) {
     StringBuilder sb = new StringBuilder();
     int i = 0;
