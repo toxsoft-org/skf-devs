@@ -3,6 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-Name: RtBrowser mws
 Bundle-SymbolicName: org.toxsoft.skf.devs.rtbrowser.mws;singleton:=true
 Bundle-Version: 1.0.0.qualifier
+Export-Package: org.toxsoft.skf.devs.rtbrowser.mws,
+ org.toxsoft.skf.devs.rtbrowser.mws.e4.addons,
+ org.toxsoft.skf.devs.rtbrowser.mws.e4.uiparts
 Bundle-Activator: org.toxsoft.skf.devs.rtbrowser.mws.Activator
 Bundle-Vendor: ToxSoft LLC.
 Require-Bundle: jakarta.inject.jakarta.inject-api,

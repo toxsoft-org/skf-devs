@@ -1,13 +1,14 @@
 package org.toxsoft.skf.devs.rtbrowser.mws.e4.addons;
 
 import static org.toxsoft.skf.devs.rtbrowser.gui.IRtBrowserGuiConstants.*;
-import static org.toxsoft.skf.devs.rtbrowser.mws.e4.IRtBrowserConstants.*;
+import static org.toxsoft.skf.devs.rtbrowser.mws.IRtBrowserConstants.*;
 
 import org.eclipse.e4.core.contexts.*;
 import org.toxsoft.core.tsgui.bricks.ctx.impl.*;
 import org.toxsoft.core.tsgui.bricks.quant.*;
 import org.toxsoft.core.tsgui.mws.bases.*;
 import org.toxsoft.skf.devs.rtbrowser.gui.*;
+import org.toxsoft.skf.devs.rtbrowser.mws.*;
 import org.toxsoft.skf.devs.rtbrowser.mws.Activator;
 import org.toxsoft.skf.devs.rtbrowser.mws.e4.*;
 import org.toxsoft.uskat.core.gui.*;

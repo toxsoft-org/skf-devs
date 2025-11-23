@@ -1,8 +1,7 @@
-package org.toxsoft.skf.devs.rtbrowser.mws.e4;
+package org.toxsoft.skf.devs.rtbrowser.mws;
 
 import org.eclipse.e4.core.contexts.*;
 import org.toxsoft.core.tsgui.graphics.icons.*;
-import org.toxsoft.skf.devs.rtbrowser.mws.*;
 
 /**
  * Plugin constants.
@@ -23,8 +22,10 @@ public interface IRtBrowserConstants {
   // ------------------------------------------------------------------------------------
   // Icons
 
-  String PREFIX_OF_ICON_FIELD_NAME = "ICONID_";  //$NON-NLS-1$
-  String ICONID_APP                = "app-icon"; //$NON-NLS-1$
+  String PREFIX_OF_ICON_FIELD_NAME = "ICONID_";        //$NON-NLS-1$
+  String ICONID_APP_RT_BROWSER     = "app-rt-browser"; //$NON-NLS-1$
+  String ICONID_FILE_GENERAL       = "file-general";   //$NON-NLS-1$
+  String ICONID_FOLDER_GENERAL     = "folder-general"; //$NON-NLS-1$
 
   /**
    * Constants registration.
