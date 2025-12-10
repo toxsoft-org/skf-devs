@@ -1,4 +1,4 @@
-package org.toxsoft.skf.devs.rtbrowser.skide;
+package org.toxsoft.skf.devs.rtbrowser.skide.l10n;
 
 import java.util.*;
 

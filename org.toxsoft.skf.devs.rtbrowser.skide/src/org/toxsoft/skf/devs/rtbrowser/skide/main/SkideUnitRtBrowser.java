@@ -2,7 +2,7 @@ package org.toxsoft.skf.devs.rtbrowser.skide.main;
 
 import static org.toxsoft.core.tsgui.bricks.actions.ITsStdActionDefs.*;
 import static org.toxsoft.core.tslib.av.metainfo.IAvMetaConstants.*;
-import static org.toxsoft.skf.devs.rtbrowser.skide.IRtBrowserSkideSharedResources.*;
+import static org.toxsoft.skf.devs.rtbrowser.skide.l10n.ISkfDevsRtBrowserSkideSharedResources.*;
 import static org.toxsoft.skide.core.ISkideCoreConstants.*;
 import static org.toxsoft.skide.core.api.ucateg.ISkideUnitCategoryConstants.*;
 
@@ -27,8 +27,8 @@ public class SkideUnitRtBrowser
 
   SkideUnitRtBrowser( ITsGuiContext aContext, AbstractSkidePlugin aCreator ) {
     super( UNIT_ID, OptionSetUtils.createOpSet( //
-        TSID_NAME, STR_SKIDE_RT_BROWSER, //
-        TSID_DESCRIPTION, STR_SKIDE_RT_BROWSER_D, //
+        TSID_NAME, STR_UNIT_SKF_DEVS_RTBROWSER, //
+        TSID_DESCRIPTION, STR_UNIT_SKF_DEVS_RTBROWSER_D, //
         OPDEF_SKIDE_UNIT_CATEGORY, UCATEGID_DEVELOPMENT_DEBUG, //
         TSID_ICON_ID, IRtBrowserGuiConstants.ICONID_RTBROWSER_APP //
     ), aContext, aCreator );
