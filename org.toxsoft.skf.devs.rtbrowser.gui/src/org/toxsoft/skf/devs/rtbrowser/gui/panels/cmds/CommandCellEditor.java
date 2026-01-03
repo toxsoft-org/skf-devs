@@ -146,7 +146,7 @@ public class CommandCellEditor
   protected void updateContents( Object aValue ) {
     if( aValue != null ) {
       if( aValue instanceof Gwid cellCmdGwid ) {
-        cmdGwidLabel.setText( cellCmdGwid.asString() );
+        cmdGwidLabel.setText( cellCmdGwid.canonicalString() );
       }
       if( aValue instanceof ISkCommand cellCmd ) {
         cmdGwidLabel.setText( cellCmd.state().toString() );
