@@ -1,6 +1,7 @@
 package org.toxsoft.skf.devs.rtbrowser.gui;
 
 import static org.toxsoft.skf.devs.rtbrowser.gui.IRtBrowserSharedResources.*;
+import static org.toxsoft.uskat.core.ISkHardConstants.*;
 
 import org.eclipse.e4.core.contexts.*;
 import org.toxsoft.core.tsgui.bricks.actions.*;
@@ -75,7 +76,7 @@ public interface IRtBrowserGuiConstants {
   /**
    * id тип возможности «RtBrowser
    */
-  String ABKINDID_RTBROWSER = "abkind.rtBrowser"; // »
+  String ABKINDID_RTBROWSER = SK_ID + ".skf.devs.abinkd.rtBrowser"; //$NON-NLS-1$
 
   /**
    * создание «своего» типа
